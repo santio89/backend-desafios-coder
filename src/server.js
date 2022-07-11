@@ -48,10 +48,10 @@ io.on("connection", async socket => {
 
     const mensajes = await chat.getAll();
 
-    socket.emit("server:items", {productos: contenedorProductos.productos, mensajes})
+    socket.emit("server:items", {productos: await contenedorProductos.getAll(), mensajes})
 
     socket.on("client: producto", async producto => {
-        contenedorProductos.save(producto);
+        await contenedorProductos.save(producto);
 
         io.emit("server:producto", producto);
     })

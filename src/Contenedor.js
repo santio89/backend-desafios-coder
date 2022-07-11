@@ -1,46 +1,19 @@
 const fs = require("fs");
+const database = require("./db/products/database");
+const createTable = require("./db/products/create_products_table")
 class Contenedor {
-    constructor(archivo) {
-        this.archivo = archivo
-        this.productos = [];
-    }
-
-    /* init - carga productos del archivo */
-    async init() {
-        try {
-            this.productos = JSON.parse(await fs.promises.readFile(this.archivo, "utf-8"));
-            console.log("Productos cargados");
-        } catch (err) {
-            if (err.code === 'ENOENT') {
-                /* si el archivo no existe, lo creo */
-                await fs.promises.writeFile(this.archivo, JSON.stringify([]));
-                console.log("Productos cargados");
-            } else {
-                console.log("Error cargando productos. Code: ", err);
-            }
-        }
+    constructor(table) {
+        this.table = table
     }
 
     async save(objeto) {
         try {
-            /* busco id en archivo */
-            let ids = JSON.parse(await fs.promises.readFile("./src/productIds.txt", "utf-8"));
-            ids.push(ids[ids.length - 1] + 1);
-            objeto.id = ids[ids.length - 1];
-            await fs.promises.writeFile("./src/productIds.txt", JSON.stringify(ids));
-            this.productos.push(objeto)
-            await fs.promises.writeFile(this.archivo, JSON.stringify(this.productos))
-            console.log("Producto cargado");
-
+            const id = await database(this.table).insert(objeto)
+            objeto.id = id[0];
+            console.log("Producto cargado con ID", objeto.id);
             return objeto;
         } catch (err) {
-            if (err.code === 'ENOENT') {
-                /* si el archivo no existe, lo creo */
-                await fs.promises.writeFile("./src/productIds.txt", JSON.stringify([1]));
-                console.log("Producto cargado");
-            } else {
-                console.log("Error guardando objeto en el fs. Code: ", err);
-            }
+            console.log("Error guardando producto: ", err)
         }
     }
 
@@ -51,7 +24,7 @@ class Contenedor {
             this.productos[index] = objeto;
 
             try {
-                await fs.promises.writeFile(this.archivo, JSON.stringify(this.productos));
+                await fs.promises.writeFile(this.table, JSON.stringify(this.productos));
             } catch (err) {
                 console.log("Error guardando producto por ID. Code: ", err)
             }
@@ -67,8 +40,16 @@ class Contenedor {
         return (objeto ? objeto : { error: `No se encontró el producto con ID ${id}` });
     }
 
-    getAll() {
-        return (this.productos);
+    async getAll() {
+        try {
+            const productos = await database.from(this.table).select("*")
+            return productos;
+        } catch (err) {
+            /* if no table */
+            if (err.errno === 1146){
+                createTable();
+            }
+        }
     }
 
     async deleteById(id) {
@@ -81,7 +62,7 @@ class Contenedor {
                 removedItems = JSON.parse(await fs.promises.readFile("./src/deletedProducts.txt", "utf-8"))
                 removedItems.push(removedItem);
                 await fs.promises.writeFile("./src/deletedProducts.txt", JSON.stringify([removedItems]));
-                await fs.promises.writeFile(this.archivo, JSON.stringify(this.productos))
+                await fs.promises.writeFile(this.table, JSON.stringify(this.productos))
             } catch (err) {
                 if (err.code === 'ENOENT') {
                     await fs.promises.writeFile("./src/deletedProducts.txt.txt", JSON.stringify([removedItem]));
