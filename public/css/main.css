@@ -1,0 +1,490 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  font-size: 100%;
+  scroll-padding-top: 60px;
+  /* scrollbar standard */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(30, 30, 30) coral;
+  /* INICIO SCROLLBAR */
+  /* width */
+  /* track */
+  /* handle */
+  /* FIN SCROLLBAR */
+}
+html ::-webkit-scrollbar {
+  width: 8px;
+}
+html ::-webkit-scrollbar-track {
+  background: rgb(50, 50, 50);
+}
+html ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgb(30, 30, 30) 50%, coral 50%);
+}
+
+ul,
+ol,
+li,
+a,
+h1,
+h2,
+h3,
+p,
+body,
+header,
+section,
+footer,
+.container,
+.container-fluid,
+.row,
+.col {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.container-fluid {
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: start;
+  align-items: center;
+  font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: rgb(50, 50, 50);
+  font-size: 1.2rem;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  width: 100%;
+  height: 60px;
+  background: rgb(30, 30, 30);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+header nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav a {
+  color: coral;
+  font-weight: bold;
+  font-size: 1.8rem;
+  margin-left: 1rem;
+  padding: 0.2em;
+  text-decoration: none;
+  border-radius: 0.1em;
+}
+header nav a:focus-visible {
+  outline: 2px dashed coral;
+}
+header nav ul {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  list-style: none;
+  margin-right: 1rem;
+}
+header nav ul li {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 140px;
+}
+header nav ul li a {
+  padding: 0.2em 1rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+  margin: 0;
+  width: 140px;
+}
+header nav ul li a:hover, header nav ul li a:focus {
+  background: coral;
+}
+
+h2 {
+  color: coral;
+  text-shadow: 2px 2px 0 rgb(30, 30, 30);
+  font-size: clamp(2.4rem, 2.4rem + 10%, 3.4rem);
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1.4rem;
+  padding-bottom: 2%;
+}
+
+section {
+  width: 100%;
+  min-height: calc(100vh - 60px - 40px);
+  margin-top: 60px;
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: start;
+  align-items: center;
+  border-bottom: 4px dashed coral;
+  padding-bottom: 4%;
+}
+
+.formulario form {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: start;
+  align-items: start;
+  gap: 0.8rem;
+  background: rgb(30, 30, 30);
+  outline: 4px solid rgb(90, 90, 90);
+  border-radius: 0.8em;
+  padding: 1em;
+  font-size: clamp(1.2rem, 1.2rem + 40%, 1.6rem);
+}
+.formulario form label {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 0.2rem;
+  color: rgb(120, 120, 120);
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgb(30, 30, 30);
+  max-width: 100%;
+}
+.formulario form label input {
+  color: rgb(30, 30, 30);
+  border-radius: 0.1em;
+  line-height: 1.4;
+  border: none;
+  outline: none;
+  max-width: 100%;
+  font-size: 0.8em;
+  background: rgb(120, 120, 120);
+}
+.formulario form label input[type=file] {
+  background: none;
+  outline: none;
+  border: none;
+  max-width: 208px;
+  background: rgb(30, 30, 30);
+  color: white;
+}
+.formulario form label input[type=file]:focus {
+  outline: 2px solid coral;
+}
+.formulario form label input[type=radio] {
+  accent-color: coral;
+  outline: none;
+  border: none;
+}
+.formulario form label input[type=radio]:focus {
+  outline: none;
+}
+.formulario form label input:focus {
+  outline: 2px solid coral;
+}
+.formulario form label span:has(input[type=radio]:not(:checked)) + input {
+  display: none;
+}
+.formulario form label.formulario__radio {
+  display: block;
+}
+.formulario form label.formulario__radio input[type=radio]:not(:checked) + input {
+  display: none;
+}
+.formulario form label.formulario__radio input[type=text],
+.formulario form label.formulario__radio input[type=file] {
+  display: block;
+}
+.formulario form button {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: coral;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2em;
+  border-radius: 0.1em;
+  align-self: center;
+}
+.formulario form button:hover, .formulario form button:focus {
+  outline: 2px solid rgb(90, 90, 90);
+}
+
+.productos table {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  margin-bottom: 4rem;
+  color: rgb(120, 120, 120);
+  text-shadow: 1px 1px 0 rgb(50, 50, 50);
+  font-weight: bold;
+  background: rgb(30, 30, 30);
+  outline: 4px solid rgb(90, 90, 90);
+  border-radius: 0.8em;
+  font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+}
+.productos table tr,
+.productos table th,
+.productos table td {
+  padding: 0.4em 2em;
+  text-align: center;
+}
+.productos table tr td:first-child {
+  border-left: none;
+}
+.productos table tr td:last-child {
+  border-right: none;
+}
+.productos table tr:last-child td {
+  border-bottom: none;
+}
+.productos table td {
+  border: 1px dashed rgb(50, 50, 50);
+}
+.productos table th {
+  color: coral;
+  font-size: 1.2em;
+  padding: 0.8em 2em;
+}
+.productos table img {
+  aspect-ratio: 4/5;
+  width: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.2em;
+}
+
+.chat {
+  font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+}
+.chat__container {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 1.2rem;
+  width: 100%;
+  width: clamp(280px, 100%, 800px);
+}
+.chat__container fieldset {
+  border-radius: 2em;
+  border: 2px dashed coral;
+  text-align: center;
+  align-self: center;
+  line-height: 1;
+}
+.chat__container fieldset legend {
+  padding: 0 0.28em;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 0 rgb(120, 120, 120);
+  font-weight: bold;
+  color: coral;
+}
+.chat__container input {
+  color: rgb(30, 30, 30);
+  border-radius: 0.1em;
+  line-height: 1.4;
+  border: none;
+  outline: none;
+  max-width: 100%;
+  font-size: 0.8em;
+  background: rgb(120, 120, 120);
+}
+.chat__container input.chat__container__mensaje {
+  color: coral;
+  font-weight: bold;
+  background: transparent;
+  padding: 0.2em 0.4em;
+  font-size: 1.2em;
+  border-bottom: 2px dashed coral;
+  align-self: center;
+  width: 100%;
+  padding-right: 100px;
+}
+.chat__container input.chat__container__mensaje::-moz-placeholder {
+  color: rgb(30, 30, 30);
+}
+.chat__container input.chat__container__mensaje:-ms-input-placeholder {
+  color: rgb(30, 30, 30);
+}
+.chat__container input.chat__container__mensaje::placeholder {
+  color: rgb(30, 30, 30);
+}
+.chat__container input.chat__container__nombre {
+  color: coral;
+  font-weight: bold;
+  background: transparent;
+  padding: 0.2em;
+  font-size: 1.2em;
+  align-self: center;
+  width: 100%;
+  text-align: center;
+}
+.chat__container input.chat__container__nombre::-moz-placeholder {
+  color: rgb(30, 30, 30);
+}
+.chat__container input.chat__container__nombre:-ms-input-placeholder {
+  color: rgb(30, 30, 30);
+}
+.chat__container input.chat__container__nombre::placeholder {
+  color: rgb(30, 30, 30);
+}
+.chat__container__nombre--label {
+  display: none;
+}
+.chat__container__mensajesBox {
+  outline: 4px solid rgb(90, 90, 90);
+  overflow: hidden;
+  background: rgb(120, 120, 120);
+  border-radius: 0.8em;
+  width: 100%;
+  height: 400px;
+}
+.chat__container__mensajes {
+  width: 100%;
+  height: 100%;
+  background: rgb(120, 120, 120);
+  border-radius: 0.8em;
+  margin: 0 auto;
+  color: rgb(30, 30, 30);
+  font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+  padding: 0.4em 0.8em;
+  overflow-y: scroll;
+}
+.chat__container__mensajes div {
+  word-break: break-all;
+  background: rgb(120, 120, 120);
+}
+.chat__container__mensajes::-webkit-scrollbar {
+  width: 6px;
+}
+.chat__container__mensajes::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+}
+.chat__container__mensajes__nombre {
+  font-weight: bold;
+  color: coral;
+}
+.chat__container__mensajes__fecha {
+  color: rgb(30, 30, 30);
+}
+.chat__container__mensajes__mensaje {
+  color: white;
+}
+.chat__container__envio {
+  width: 100%;
+  position: relative;
+}
+.chat__container__envio button {
+  padding: 0.2em;
+  border-radius: 0.2em;
+  background: rgb(120, 120, 120);
+  color: coral;
+  position: absolute;
+  right: 0.2em;
+  will-change: transform;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgb(30, 30, 30);
+}
+.chat__container__envio button:hover, .chat__container__envio button:focus {
+  outline: 1px dashed rgb(120, 120, 120);
+}
+.chat__container__envio button:active {
+  transform: translate(1px, 1px);
+}
+
+footer {
+  width: 100%;
+  height: 40px;
+  color: coral;
+  padding: 0.4em;
+  background: linear-gradient(45deg, rgb(30, 30, 30) 80%, coral 80%);
+  font-weight: bold;
+  margin-top: auto;
+  font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+  padding: 1.2em 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+footer p {
+  margin-left: 1rem;
+}
+
+.error404 p {
+  font-size: 1.8rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+}/*# sourceMappingURL=main.css.map */

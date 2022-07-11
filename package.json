@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "knex": "^2.1.0",
+    "mysql": "^2.18.1",
+    "socket.io": "^4.5.1",
+    "sqlite3": "^5.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "devStart": "nodemon src/server.js"
+  },
+  "name": "node-websockets-sql-coder",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,0 +1,549 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    font-size: 100%;
+    scroll-padding-top: 60px;
+
+    /* scrollbar standard */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(30, 30, 30) coral;
+
+
+    /* INICIO SCROLLBAR */
+    /* width */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* track */
+    ::-webkit-scrollbar-track {
+        background: rgb(50, 50, 50);
+    }
+
+    /* handle */
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, rgba(30, 30, 30) 50%, coral 50%);
+    }
+
+    /* FIN SCROLLBAR */
+}
+
+ul,
+ol,
+li,
+a,
+h1,
+h2,
+h3,
+p,
+body,
+header,
+section,
+footer,
+.container,
+.container-fluid,
+.row,
+.col {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+ul {
+    list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.container-fluid {
+    width: 100%;
+}
+
+
+
+body {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: start;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: rgb(50, 50, 50);
+    font-size: 1.2rem;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    height: 60px;
+    background: rgb(30, 30, 30);
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+
+    nav {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            color: coral;
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin-left: 1rem;
+            padding: .2em;
+            text-decoration: none;
+            border-radius: .1em;
+
+            &:focus-visible {
+                outline: 2px dashed coral;
+            }
+        }
+
+        ul {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            list-style: none;
+            margin-right: 1rem;
+
+            li {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                width: 140px;
+
+                a {
+                    padding: .2em 1rem;
+                    font-weight: bold;
+                    color: white;
+                    text-decoration: none;
+                    display: flex;
+                    flex-flow: row wrap;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 0;
+                    margin: 0;
+                    width: 140px;
+
+                    &:hover,
+                    &:focus {
+                        background: coral;
+                    }
+                }
+            }
+        }
+    }
+}
+
+h2 {
+    color: coral;
+    text-shadow: 2px 2px 0 rgb(30, 30, 30);
+    font-size: clamp(2.4rem, 2.4rem + 10%, 3.4rem);
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 2%;
+}
+
+section {
+    width: 100%;
+    min-height: calc(100vh - 60px - 40px);
+    margin-top: 60px;
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 4px dashed coral;
+    padding-bottom: 4%;
+}
+
+.formulario {
+    form {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: start;
+        align-items: start;
+        gap: .8rem;
+        background: rgb(30, 30, 30);
+        outline: 4px solid rgb(90, 90, 90);
+        border-radius: .8em;
+        padding: 1em;
+        font-size: clamp(1.2rem, 1.2rem + 40%, 1.6rem);
+
+        label {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: start;
+            gap: .2rem;
+            color: rgb(120, 120, 120);
+            font-weight: bold;
+            text-shadow: 1px 1px 0 rgb(30, 30, 30);
+            max-width: 100%;
+
+            input {
+                color: rgb(30, 30, 30);
+                border-radius: .1em;
+                line-height: 1.4;
+                border: none;
+                outline: none;
+                max-width: 100%;
+                font-size: .8em;
+                background: rgb(120, 120, 120);
+
+                &[type="file"] {
+                    background: none;
+                    outline: none;
+                    border: none;
+                    max-width: 208px;
+                    background: rgb(30, 30, 30);
+                    color: white;
+
+                    &:focus {
+                        outline: 2px solid coral;
+                    }
+                }
+
+                &[type="radio"] {
+                    accent-color: coral;
+                    outline: none;
+                    border: none;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                &:focus {
+                    outline: 2px solid coral;
+                }
+            }
+
+            span:has(input[type="radio"]:not(:checked))+input {
+                display: none;
+            }
+
+            &.formulario__radio {
+                display: block;
+
+                input[type="radio"]:not(:checked)+input {
+                    display: none;
+                }
+
+                input[type="text"],
+                input[type="file"] {
+                    display: block;
+                }
+            }
+        }
+
+        button {
+            margin-top: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: coral;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            padding: .2em;
+            border-radius: .1em;
+            align-self: center;
+
+            &:hover,
+            &:focus {
+                outline: 2px solid rgb(90, 90, 90);
+            }
+        }
+    }
+}
+
+.productos {
+    table {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+        margin-bottom: 4rem;
+        color: rgb(120, 120, 120);
+        text-shadow: 1px 1px 0 rgb(50, 50, 50);
+        font-weight: bold;
+        background: rgb(30, 30, 30);
+        outline: 4px solid rgb(90, 90, 90);
+        border-radius: .8em;
+        font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+
+        tr,
+        th,
+        td {
+            padding: .4em 2em;
+            text-align: center;
+        }
+
+        tr {
+            td {
+                &:first-child {
+                    border-left: none;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+
+            &:last-child {
+                td {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        td {
+            border: 1px dashed rgb(50, 50, 50);
+        }
+
+        th {
+            color: coral;
+            font-size: 1.2em;
+            padding: .8em 2em;
+        }
+
+        img {
+            aspect-ratio: 4/5;
+            width: 80px;
+            object-fit: cover;
+            border-radius: .2em;
+        }
+    }
+}
+
+.chat {
+    font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+
+    &__container {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: start;
+        gap: 1.2rem;
+        width: 100%;
+        width: clamp(280px, 100%, 800px);
+
+        fieldset {
+            border-radius: 2em;
+            border: 2px dashed coral;
+            text-align: center;
+            align-self: center;
+            line-height: 1;
+
+            legend {
+                padding: 0 .28em;
+                font-size: 1.2em;
+                text-shadow: 1px 1px 0 rgb(120, 120, 120);
+                font-weight: bold;
+                color: coral;
+            }
+        }
+
+        input {
+            color: rgb(30, 30, 30);
+            border-radius: .1em;
+            line-height: 1.4;
+            border: none;
+            outline: none;
+            max-width: 100%;
+            font-size: .8em;
+            background: rgb(120, 120, 120);
+
+            &.chat__container__mensaje {
+                color: coral;
+                font-weight: bold;
+                background: transparent;
+                padding: .2em .4em;
+                font-size: 1.2em;
+                border-bottom: 2px dashed coral;
+                align-self: center;
+                width: 100%;
+                padding-right: 100px;
+
+                &::placeholder {
+                    color: rgb(30, 30, 30)
+                }
+            }
+
+            &.chat__container__nombre {
+                color: coral;
+                font-weight: bold;
+                background: transparent;
+                padding: .2em;
+                font-size: 1.2em;
+                align-self: center;
+                width: 100%;
+                text-align: center;
+
+                &::placeholder {
+                    color: rgb(30, 30, 30)
+                }
+            }
+        }
+
+        &__nombre--label {
+            display: none;
+        }
+
+        &__mensajesBox {
+            outline: 4px solid rgb(90, 90, 90);
+            overflow: hidden;
+            background: rgb(120, 120, 120);
+            border-radius: .8em;
+            width: 100%;
+            height: 400px;
+        }
+
+        &__mensajes {
+            width: 100%;
+            height: 100%;
+            background: rgb(120, 120, 120);
+            border-radius: .8em;
+            margin: 0 auto;
+            color: rgb(30, 30, 30);
+            font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+            padding: .4em .8em;
+            overflow-y: scroll;
+
+            div {
+                word-break: break-all;
+                background: rgb(120, 120, 120);
+            }
+
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border-radius: 6px;
+            }
+
+            &__nombre{
+                font-weight: bold;
+                color: coral;
+            }
+            &__fecha{
+                color: rgb(30, 30, 30);
+            }
+            &__mensaje{
+                color: white;
+            }
+        }
+
+        &__envio {
+            width: 100%;
+            position: relative;
+
+            button {
+                padding: .2em;
+                border-radius: .2em;
+                background: rgb(120, 120, 120);
+                color: coral;
+                position: absolute;
+                right: .2em;
+                will-change: transform;
+                font-weight: bold;
+                text-shadow: 1px 1px 0 rgb(30, 30, 30);
+
+                &:hover,
+                &:focus {
+                    outline: 1px dashed rgb(120, 120, 120);
+                }
+
+                &:active {
+                    transform: translate(1px, 1px)
+                }
+            }
+        }
+
+
+    }
+}
+
+footer {
+    width: 100%;
+    height: 40px;
+    color: coral;
+    padding: .4em;
+    background: linear-gradient(45deg, rgb(30, 30, 30) 80%, coral 80%);
+    font-weight: bold;
+    margin-top: auto;
+    font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
+    padding: 1.2em 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    p {
+        margin-left: 1rem;
+    }
+}
+
+.error404 {
+    p {
+        font-size: 1.8rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        color: white;
+    }
+}

@@ -1,0 +1,2 @@
+This is a folder for uploads with multer
+Ignore this file
