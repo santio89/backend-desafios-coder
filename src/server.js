@@ -3,8 +3,9 @@ const routesApi = require("./routes/indexApiRoutes").router;
 const ChatContainer = require("./Chat")
 const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
+const chatsDatabase = require("./db/database").sqliteConnection;
 
-const chat = new ChatContainer("./src/chatMensajes.txt");
+const chat = new ChatContainer(chatsDatabase, "chats");
 
 const path = require("path")
 const app = express();

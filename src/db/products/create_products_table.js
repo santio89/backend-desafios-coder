@@ -1,5 +1,5 @@
 
-const database = require('./database')
+const database = require('../database').mysqlConnection
 
 const createProductsTable = async () => {
     try{

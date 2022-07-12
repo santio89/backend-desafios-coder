@@ -1,14 +1,12 @@
-const fs = require("fs");
-const database = require("./db/products/database");
-const createTable = require("./db/products/create_products_table")
 class Contenedor {
-    constructor(table) {
+    constructor(database, table) {
+        this.database = database
         this.table = table
     }
 
     async save(objeto) {
         try {
-            const id = await database(this.table).insert(objeto)
+            const id = await this.database(this.table).insert(objeto)
             objeto.id = id[0];
             console.log("Producto cargado con ID", objeto.id);
             
@@ -21,7 +19,7 @@ class Contenedor {
 
     async saveById(id, objeto) {
         try {
-            const rid = await database.from(this.table).where('id', '=', id).update(objeto)
+            const rid = await this.database.from(this.table).where('id', '=', id).update(objeto)
             if (rid === 0) {
                 return { error: `Producto de ID ${id} no encontrado` }
             } else {
@@ -35,7 +33,7 @@ class Contenedor {
 
     async getById(id) {
         try {
-            const product = await database.from(this.table).where({id})
+            const product = await this.database.from(this.table).where({id})
             
             if (product[0]) {
                 return product[0]
@@ -50,11 +48,12 @@ class Contenedor {
 
     async getAll() {
         try {
-            const productos = await database.from(this.table).select("*")
+            const productos = await this.database.from(this.table).select("*")
             return productos;
         } catch (err) {
-            /* if no table */
             if (err.errno === 1146) {
+                /* if no table */
+                const createTable = require("./db/products/create_products_table")
                 await createTable();
                 console.log(`Tabla ${this.table} creada`)
                 return []
@@ -67,7 +66,7 @@ class Contenedor {
 
     async deleteById(id) {
         try {
-            const rid = await database(this.table).where({id}).del()
+            const rid = await this.database(this.table).where({id}).del()
             if (rid === 0) {
                 return { error: `Producto de ID ${id} no encontrado` }
             } else {
