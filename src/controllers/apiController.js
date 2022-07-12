@@ -3,6 +3,18 @@ const Contenedor = require("../Contenedor");
 const productsDatabase = require("../db/database").mysqlConnection;
 const contenedorProductos = new Contenedor(productsDatabase, "products");
 
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, "public/uploads")
+    },
+    filename: function (req, file, cb){
+        file.date = Date.now();
+        cb(null, file.date + "-" + file.originalname )
+    }
+})
+const upload = multer({storage: storage})
+
 
 const getAllProducts = async (req, res)=>{
     res.json(await contenedorProductos.getAll());
@@ -24,4 +36,14 @@ const deleteProductById = async (req, res)=>{
     res.json(await contenedorProductos.deleteById(Number(req.params.id)));
 }
 
-module.exports = {contenedorProductos, getAllProducts, getProductById, postProduct, putProduct, deleteProductById}
+const formSent = (req, res)=>{
+    const img = req.body.formImage
+    
+    if (img == "file" && req.file){
+        req.body.thumbnail = `/uploads/${req.file.date}-${req.file.originalname}`
+    } 
+    await contenedorProductos.save(req.body)
+    res.redirect("/")
+}
+
+module.exports = {upload, contenedorProductos, getAllProducts, getProductById, postProduct, putProduct, deleteProductById, formSent}
