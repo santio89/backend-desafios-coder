@@ -1,6 +1,5 @@
 
 const knex = require('knex')
-const path = require("path")
 
 const config = {
   client: "mysql",
