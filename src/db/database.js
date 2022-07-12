@@ -1,5 +1,7 @@
 
 const knex = require('knex')
+const path = require("path")
+
 const config = {
   client: "mysql",
   connection: {
@@ -12,7 +14,7 @@ const config = {
 }
 const configSQLite3 = {
   client: "sqlite3",
-  connection: { filename: './db/chats.sqlite' },
+  connection: { filename: 'E:/Santi/Escritorio/node-websockets-sql-coder/src/db/chat/chats.sqlite' },
   useNullAsDefault: true
 }
 

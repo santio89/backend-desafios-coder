@@ -21,7 +21,7 @@ class Chat{
             const mensajes = await this.database.from(this.table).select("*")
             return mensajes;
         } catch(err){
-            if (err.code === 1) {
+            if (err.errno === 1) {
                 /* if no table */
                 const createTable = require("./db/chat/create_chat_table")
                 await createTable();
