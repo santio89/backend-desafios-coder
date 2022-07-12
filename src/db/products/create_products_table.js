@@ -10,12 +10,9 @@ const createProductsTable = async () => {
             productTable.integer('price').notNullable();
         })
         console.log("product table created")
-        database.destroy();
     } catch(err){
         console.log("error: ", err);
-        database.destroy();
     }
-        
 }
 
 module.exports = createProductsTable;

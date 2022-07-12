@@ -10,12 +10,9 @@ const createChatTable = async () => {
             chatTable.string('fecha', 200).notNullable();
         })
         console.log("chat table created")
-        database.destroy();
     } catch(err){
         console.log("error: ", err);
-        database.destroy();
     }
-        
 }
 
 module.exports = createChatTable;

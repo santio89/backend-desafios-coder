@@ -36,7 +36,7 @@ const deleteProductById = async (req, res)=>{
     res.json(await contenedorProductos.deleteById(Number(req.params.id)));
 }
 
-const formSent = (req, res)=>{
+const formSent = async (req, res)=>{
     const img = req.body.formImage
     
     if (img == "file" && req.file){
