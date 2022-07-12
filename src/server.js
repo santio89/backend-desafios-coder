@@ -47,8 +47,9 @@ io.on("connection", async socket => {
     console.log("Nuevo usuario conectado")
 
     const mensajes = await chat.getAll();
+    const productos = await contenedorProductos.getAll();
 
-    socket.emit("server:items", {productos: await contenedorProductos.getAll(), mensajes})
+    socket.emit("server:items", {productos, mensajes})
 
     socket.on("client: producto", async producto => {
         await contenedorProductos.save(producto);

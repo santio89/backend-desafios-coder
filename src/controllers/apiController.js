@@ -7,24 +7,24 @@ contenedorProductos.save({title: "2001: A Space Odyssey", price: 15, thumbnail: 
 contenedorProductos.save({title: "Friday de 13th I", price: 12, thumbnail: "https://horrornews.net/wp-content/uploads/2018/11/friday-the-13th-movie-poster-1980.jpg"}) */
 
 
-const getAllProducts = (req, res)=>{
-    res.json(contenedorProductos.getAll());
+const getAllProducts = async (req, res)=>{
+    res.json(await contenedorProductos.getAll());
 }
 
-const getProductById = (req, res)=>{
-    res.json(contenedorProductos.getById(Number(req.params.id)));
+const getProductById = async (req, res)=>{
+    res.json(await contenedorProductos.getById(Number(req.params.id)));
 }
 
-const postProduct = (req, res)=>{
-    res.json(contenedorProductos.save(req.body))
+const postProduct = async (req, res)=>{
+    res.json(await contenedorProductos.save(req.body))
 }
 
-const putProduct = (req, res)=>{
-    res.json(contenedorProductos.saveById(Number(req.params.id), req.body));
+const putProduct = async (req, res)=>{
+    res.json(await contenedorProductos.saveById(Number(req.params.id), req.body));
 }
 
-const deleteProductById = (req, res)=>{
-    res.json(contenedorProductos.deleteById(Number(req.params.id)));
+const deleteProductById = async (req, res)=>{
+    res.json(await contenedorProductos.deleteById(Number(req.params.id)));
 }
 
 module.exports = {contenedorProductos, getAllProducts, getProductById, postProduct, putProduct, deleteProductById}
