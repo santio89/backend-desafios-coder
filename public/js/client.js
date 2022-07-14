@@ -59,11 +59,21 @@ function renderMensaje(mensajeEnvio) {
     mensajesContainer.scroll({ top: mensajesContainer.scrollHeight, behavior: "smooth"})
 }
 
+function displayTable(){
+    const table = document.querySelector(".productos__table")
+    const noProd = document.querySelector(".productos__noProd")
+    if (table.classList.contains("d-none")){
+        table.classList.remove("d-none")
+        noProd.classList.add("d-none")
+    }
+}
+
 socket.on("server:items", items => {
     renderItems(items);
 })
 
 socket.on("server:producto", producto => {
+    displayTable();
     renderProducto(producto);
 })
 

@@ -39,8 +39,26 @@
                 </tr>
                 <% }) %>
         </table>
+        <p class="productos__noProd d-none">No hay productos cargados.</p>
         <% } else {%>
-            <p>No hay productos cargados.</p>
+            <table class="productos__table d-none">
+                <tr>
+                    <th>TITULO</th>
+                    <th>PORTADA</th>
+                    <th>PRECIO</th>
+                </tr>
+    
+                <% productos.forEach(item=>{%>
+                    <tr>
+                        <td>
+                            <%=item.title%>
+                        </td>
+                        <td><img alt="item img" src="<%=item.imgUrl%>" /></td>
+                        <td>$<%=item.price%> USD</td>
+                    </tr>
+                    <% }) %>
+            </table>
+            <p class="productos__noProd">No hay productos cargados.</p>
             <% } %>
 </section>
 
