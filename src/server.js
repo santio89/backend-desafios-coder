@@ -1,5 +1,6 @@
 const express = require("express")
 const routesApi = require("./routes/indexApiRoutes").router;
+const routesProdTest = require("./routes/productosTest").router;
 const ChatContainer = require("./Chat")
 const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, "../public")))
 
 /* routes main */
 app.use("/api/productos", routesApi)
+app.use("/api/productos-test", routesProdTest)
 
 /* not found */
 app.use((req, res) => {
