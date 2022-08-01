@@ -1,9 +1,26 @@
 const express = require("express");
+const faker = require("@faker-js/faker").faker
+
 const router = express.Router();
+faker.locale = "es"
+
+function generateRandom(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
 
 /* ruteo */
-router.get("/", (req, res)=>{
+router.route("/").get((req, res)=>{
+    let productos = [];
 
+    for (i=0; i<5; i++){
+        let producto = {};
+        producto.title = faker.commerce.productName();
+        producto.imgUrl = faker.image.image();
+        producto.price = faker.commerce.price();
+        productos.push(producto)
+    }
+
+    res.json(productos);
 })
 
 

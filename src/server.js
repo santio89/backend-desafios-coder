@@ -50,9 +50,15 @@ io.on("connection", async socket => {
     console.log("Nuevo usuario conectado")
 
     const mensajes = await chat.getAll();
-    const productos = await contenedorProductos.getAll();
+/*  
+    obtiene productos desde el contenedor de productos. de momento queda comentado ya que estoy probando los datos con mocks (server:items-test)   
 
-    socket.emit("server:items", {productos, mensajes})
+    const productos = await contenedorProductos.getAll();
+    socket.emit("server:items", {productos, mensajes}) 
+*/
+
+    socket.emit("server:items-test", {productos:[],mensajes})
+
 
     socket.on("client: producto", async producto => {
         await contenedorProductos.save(producto);

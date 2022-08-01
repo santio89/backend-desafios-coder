@@ -72,6 +72,18 @@ socket.on("server:items", items => {
     renderItems(items);
 })
 
+socket.on("server:items-test", async items => {
+    /* server:item-test -> similar a server:items, pero hago un fetch al endpoint mock de productos */
+    renderItems(items);
+
+    const mockData = await fetch("http://localhost:8080/api/productos-test")
+    const mockProducts = await mockData.json()
+    displayTable();
+    mockProducts.forEach(product=>{
+        renderProducto(product)
+    })
+})
+
 socket.on("server:producto", producto => {
     displayTable();
     renderProducto(producto);
