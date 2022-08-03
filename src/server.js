@@ -70,8 +70,8 @@ io.on("connection", async socket => {
     const mensajes = await chat.getAll();
     /*aca voy a normalizar los mensajes del array antes de mandar al front. tiene sentido normalizar ya que un array de mensajes puede ser pesado y tener redundancias */
     const normalizedMensajes = normalizeMensajes(mensajes);
-    
-    socket.emit("server:items-test", { productos: [], normalizedMensajes })
+ 
+    socket.emit("server:items-test", { productos: [], mensajes: normalizedMensajes })
 
 
     socket.on("client: producto", async producto => {

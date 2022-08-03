@@ -21,11 +21,11 @@ function normalizeMensajes(array) {
 
 
     const normalizedMensajes = normalize(objToNormalize, arrayMensajeSchema)
-    print(normalizedMensajes)
+/*     print(normalizedMensajes) */
 
 
     const normalMensajes = denormalize(normalizedMensajes.result, arrayMensajeSchema, normalizedMensajes.entities)
- 
+    print(normalMensajes)
     return normalMensajes;
 }
 
