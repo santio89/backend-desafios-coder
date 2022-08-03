@@ -26,7 +26,7 @@ function normalizeMensajes(array) {
 
     const normalMensajes = denormalize(normalizedMensajes.result, arrayMensajeSchema, normalizedMensajes.entities)
     print(normalMensajes)
-    return normalMensajes;
+    return array;
 }
 
 module.exports = normalizeMensajes;
