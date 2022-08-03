@@ -76,7 +76,7 @@
                 <%if(mensajes){%>
                     <% mensajes.forEach(mensaje=>{%> 
                         <div>
-                            <span class="chat__container__mensajes__nombre"><%=mensaje.nombre%></span><span class="chat__container__mensajes__fecha"> <%=mensaje.fecha%>: </span><span class="chat__container__mensajes__mensaje"><%=mensaje.mensaje%></span>
+                            <span class="chat__container__mensajes__nombre"><%=mensaje.author.id%></span><span class="chat__container__mensajes__fecha"> <%=new Date(mensaje.createdAt).toLocaleString()%>: </span><span class="chat__container__mensajes__mensaje"><%=mensaje.text%></span>
                         </div>
                         <% })  %> 
                     <% } %>

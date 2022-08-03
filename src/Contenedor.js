@@ -53,7 +53,7 @@ class Contenedor {
         } catch (err) {
             if (err.errno === 1146) {
                 /* if no table */
-                const createTable = require("./db/products/create_products_table")
+                const createTable = require("./db/productsSql/create_products_table")
                 await createTable();
                 console.log(`Tabla ${this.table} creada`)
                 return []

@@ -1,1 +1,1 @@
-# node-express-socketio-mysql-sqlite-normalizr
+# node-express-socketio-mysql-sqlite-mongo-normalizr

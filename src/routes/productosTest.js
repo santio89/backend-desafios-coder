@@ -4,10 +4,6 @@ const faker = require("@faker-js/faker").faker
 const router = express.Router();
 faker.locale = "es"
 
-function generateRandom(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-
 /* ruteo */
 router.route("/").get((req, res)=>{
     let productos = [];

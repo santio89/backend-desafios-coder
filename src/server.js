@@ -4,9 +4,21 @@ const routesProdTest = require("./routes/productosTest").router;
 const ChatContainer = require("./Chat")
 const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
-const chatsDatabase = require("./db/database").sqliteConnection;
+const normalizeMensajes = require("../util/normalize")
 
-const chat = new ChatContainer(chatsDatabase, "chats");
+
+const chat = new ChatContainer("chats", {
+    author: {
+        id: { type: String, required: true },
+        nombre: { type: String, required: true },
+        apellido: { type: String, required: true },
+        edad: { type: Number, required: true },
+        alias: { type: String, required: true },
+        avatar: { type: String, required: true }
+    },
+    text: { type: String, required: true }
+});
+
 
 const path = require("path")
 const app = express();
@@ -25,7 +37,7 @@ app.use("/api/productos-test", routesProdTest)
 
 /* not found */
 app.use((req, res) => {
-    res.status(404).json({error404: "Ruta no encontrada"});
+    res.status(404).json({ error404: "Ruta no encontrada" });
 })
 
 // error handler
@@ -49,15 +61,17 @@ const io = new IOServer(expressServer);
 io.on("connection", async socket => {
     console.log("Nuevo usuario conectado")
 
+     /*   obtiene productos desde el contenedor de productos. de momento queda comentado ya que estoy probando los datos con mocks (server:items-test)   
+
+        const productos = await contenedorProductos.getAll();
+        socket.emit("server:items", {productos, mensajes}) 
+    */
+
     const mensajes = await chat.getAll();
-/*  
-    obtiene productos desde el contenedor de productos. de momento queda comentado ya que estoy probando los datos con mocks (server:items-test)   
-
-    const productos = await contenedorProductos.getAll();
-    socket.emit("server:items", {productos, mensajes}) 
-*/
-
-    socket.emit("server:items-test", {productos:[],mensajes})
+    /*aca voy a normalizar los mensajes del array antes de mandar al front. tiene sentido normalizar ya que un array de mensajes puede ser pesado y tener redundancias */
+    const normalizedMensajes = normalizeMensajes(mensajes);
+    
+    socket.emit("server:items-test", { productos: [], normalizedMensajes })
 
 
     socket.on("client: producto", async producto => {
@@ -67,9 +81,9 @@ io.on("connection", async socket => {
     })
 
     socket.on("client:mensaje", async mensajeEnvio => {
-        await chat.save(mensajeEnvio);
-
-        io.emit("server:mensaje", mensajeEnvio);
+        /* cuando envio 1 solo mensaje, normalizarlo no tiene mucho sentido. simplemente lo guardo en la base de datos y luego si se guardo ok emito el mismo mensaje que ya tengo en memoria. */
+        const savedMessage = await chat.save(mensajeEnvio);
+        io.emit("server:mensaje", savedMessage);
     })
 })
 
