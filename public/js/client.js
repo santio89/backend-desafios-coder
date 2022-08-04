@@ -52,6 +52,7 @@ async function renderItems(items) {
 }
 
 function renderProducto(item) {
+    displayTable()
     const table = document.querySelector(".productos__table")
     table.innerHTML += `<tr>
     <td>${item.title}</td>
