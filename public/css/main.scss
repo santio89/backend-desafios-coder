@@ -203,7 +203,7 @@ h2 {
 section {
     width: 100%;
     min-height: calc(100vh - 60px - 40px);
-    margin-top: 60px;
+    margin-top: .4rem;
     max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
@@ -213,6 +213,10 @@ section {
     align-items: center;
     border-bottom: 4px dashed coral;
     padding-bottom: 4%;
+
+    &:first-of-type{
+        margin-top: calc(60px + .4rem);
+    }
 }
 
 .formulario {
@@ -523,6 +527,16 @@ section {
         }
 
 
+    }
+
+    &__optimization{
+        padding: .4em;
+        text-align: center;
+        color: white;
+        background:rgb(30, 30, 30, .4);
+        width: 100%;
+        border-radius: .4em;
+        margin: .4rem 0;
     }
 }
 

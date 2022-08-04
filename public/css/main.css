@@ -185,7 +185,7 @@ h2 {
 section {
   width: 100%;
   min-height: calc(100vh - 60px - 40px);
-  margin-top: 60px;
+  margin-top: 0.4rem;
   max-width: 1800px;
   margin-left: auto;
   margin-right: auto;
@@ -195,6 +195,9 @@ section {
   align-items: center;
   border-bottom: 4px dashed coral;
   padding-bottom: 4%;
+}
+section:first-of-type {
+  margin-top: calc(60px + 0.4rem);
 }
 
 .formulario form {
@@ -466,6 +469,15 @@ section {
 }
 .chat__container__envio button:active {
   transform: translate(1px, 1px);
+}
+.chat__optimization {
+  padding: 0.4em;
+  text-align: center;
+  color: white;
+  background: rgba(30, 30, 30, 0.4);
+  width: 100%;
+  border-radius: 0.4em;
+  margin: 0.4rem 0;
 }
 
 footer {

@@ -4,29 +4,34 @@ const denormalize = require("normalizr").denormalize
 const util = require("util")
 
 
-
 function print(obj) {
-    console.log(util.inspect(obj, false, 12, true));
+  console.log(util.inspect(obj, false, 12, true));
 }
 
-function normalizeMensajes(array) {
-    const objToNormalize = {
-        id: 1,
-        mensajes: array
+function normalizeMensajes(mensajes) {
+  const author = new schema.Entity("author");
+
+  const mensaje = new schema.Entity(
+    "mensaje",
+    { author: author },
+    { idAttribute: "_id" }
+  );
+
+  const schemaMensajes = new schema.Entity(
+    "mensajes",
+    {
+      mensajes: [mensaje],
     }
+  );
 
-    const authorSchema = new schema.Entity("author")
-    const mensajeSchema = new schema.Entity("mensaje", { author: authorSchema }, { idAttribute: "_id" })
-    const arrayMensajeSchema = new schema.Entity("mensajes", { mensajes: [mensajeSchema] })
+  const normalizedPost = normalize(
+    { id: "mensajes", mensajes },
+    schemaMensajes
+  );
 
+/*   print(normalizedPost) */
 
-    const normalizedMensajes = normalize(objToNormalize, arrayMensajeSchema)
-/*     print(normalizedMensajes) */
-
-
-    const normalMensajes = denormalize(normalizedMensajes.result, arrayMensajeSchema, normalizedMensajes.entities)
-    print(normalMensajes)
-    return array;
+  return normalizedPost;
 }
 
 module.exports = normalizeMensajes;

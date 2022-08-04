@@ -47,6 +47,8 @@ async function renderItems(items) {
         socket.emit("client:mensaje", mensajeEnvio);
         chatMensaje.value = "";
     })
+
+    renderOptimization(items.optimization)
 }
 
 function renderProducto(item) {
@@ -65,25 +67,72 @@ function renderMensaje(mensajeEnvio) {
     mensajesContainer.scroll({ top: mensajesContainer.scrollHeight, behavior: "smooth" })
 }
 
+function renderOptimization(optimization) {
+    const optimizationContainer = document.querySelector(".chat__optimization")
+    optimizationContainer.innerHTML += `<b>${optimization}</b>`;
+}
+
 function displayTable() {
     const table = document.querySelector(".productos__table")
     const noProd = document.querySelector(".productos__noProd")
-    if (table.classList.contains("d-none")) {
+    if (table?.classList?.contains("d-none")) {
         table.classList.remove("d-none")
         noProd.classList.add("d-none")
     }
 }
 
+function denormalizeMensajes(objMensajes) {
+    const author = new normalizr.schema.Entity(
+        "author"
+    );
+
+    const mensaje = new normalizr.schema.Entity(
+        "mensaje",
+        { author: author },
+        { idAttribute: "_id" }
+    );
+
+    const schemaMensajes = new normalizr.schema.Entity(
+        "mensajes",
+        {
+            mensajes: [mensaje],
+        }
+    );
+
+    const denormalized = normalizr.denormalize(
+        objMensajes.result,
+        schemaMensajes,
+        objMensajes.entities
+    );
+
+
+    const logitudNormalized = JSON.stringify(objMensajes).length;
+    const longitudDenormalized = JSON.stringify(denormalized).length;
+    console.log(logitudNormalized)
+    console.log(longitudDenormalized)
+    const porcentajeOptimizacion = (100 - ((logitudNormalized * 100) / longitudDenormalized)).toFixed(2);
+
+
+    /* al desnormalizar, me qedan los items en una propiedad _doc, por tanto creo el array de mensajes mapeando _doc */
+    const mensajesDenormalizados = denormalized.mensajes.map(mensaje => mensaje._doc)
+
+    return { mensajesDenormalizados, porcentajeOptimizacion };
+}
+
 socket.on("server:items", items => {
-    /* desnormalizar items.mensajes */
+    const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
+    items.mensajes = mensajesDenormalizados
+    items.optimization = porcentajeOptimizacion;
     renderItems(items);
 })
 
 socket.on("server:items-test", async items => {
     /* server:item-test -> similar a server:items, pero el array de productos lo recibo vacio, y en vez hago un fetch al endpoint mock de productos */
-
-    /* desnormalizar items.mensajes */
+    const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
+    items.mensajes = mensajesDenormalizados
+    items.optimization = porcentajeOptimizacion;
     renderItems(items);
+
 
     const mockData = await fetch("http://localhost:8080/api/productos-test")
     const mockProducts = await mockData.json()
@@ -99,6 +148,5 @@ socket.on("server:producto", producto => {
 })
 
 socket.on("server:mensaje", mensajeEnvio => {
-    /* desnormalizar mensajeEnvio */
     renderMensaje(mensajeEnvio)
 })
