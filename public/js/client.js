@@ -108,8 +108,6 @@ function denormalizeMensajes(objMensajes) {
 
     const logitudNormalized = JSON.stringify(objMensajes).length;
     const longitudDenormalized = JSON.stringify(denormalized).length;
-    console.log(logitudNormalized)
-    console.log(longitudDenormalized)
     const porcentajeOptimizacion = (100 - ((logitudNormalized * 100) / longitudDenormalized)).toFixed(2);
 
 
