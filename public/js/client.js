@@ -70,7 +70,7 @@ function renderMensaje(mensajeEnvio) {
 
 function renderOptimization(optimization) {
     const optimizationContainer = document.querySelector(".chat__optimization")
-    optimizationContainer.innerHTML += `<b>${optimization}</b>`;
+    optimizationContainer.innerHTML += `<b>${optimization}%</b>`;
 }
 
 function displayTable() {
