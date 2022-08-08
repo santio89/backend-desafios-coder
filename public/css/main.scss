@@ -198,6 +198,16 @@ h2 {
     &__title{
         line-height: 1;
     }
+    &__salute{
+        position: fixed;
+        top: 60px;
+        right: 10px;
+        padding: 1.4rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 1px 1px 0 coral;
+    }
 }
 
 section {
@@ -215,7 +225,7 @@ section {
     padding-bottom: 4%;
 
     &:first-of-type{
-        margin-top: calc(60px + .4rem);
+        margin-top: calc(60px);
     }
 }
 
@@ -544,12 +554,10 @@ footer {
     width: 100%;
     height: 40px;
     color: coral;
-    padding: .4em;
     background: linear-gradient(45deg, rgb(30, 30, 30) 80%, coral 80%);
     font-weight: bold;
     margin-top: auto;
     font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
-    padding: 1.2em 0;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -570,4 +578,39 @@ footer {
 
 .d-none{
     display: none;
+}
+
+.login{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-flow: column wrap;
+    font-size: 2rem;
+
+    &__form{
+        width: min(100%, 800px);
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-flow: column wrap;
+        gap: 2rem;
+
+        input{
+            background: none;
+            outline: none;
+            border: none;
+            text-align: center;
+            border-bottom: 2px dashed coral;
+            font-weight: bold;
+            color: coral;
+            text-shadow: 2px 2px 0 rgb(30, 30, 30);
+        }
+
+        button{
+            font-size: 1.2em;
+            font-weight: bold;
+            color: rgb(30, 30, 30);
+            text-shadow: 1px 1px 0 coral;
+        }
+    }
 }

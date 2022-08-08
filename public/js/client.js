@@ -7,6 +7,27 @@ async function renderItems(items) {
     const html = ejs.render(plantilla, { productos: items.productos, mensajes: items.mensajes });
     document.getElementById('root').innerHTML = html;
 
+    /* logout */
+    const logout = document.querySelector(".logout");
+    logout.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch(`http://localhost:8080/logout`).then(res => {
+            return res.json()
+        }).then(res => {
+            console.log(res)
+            if (res.status === "ok") {
+                const salute = document.querySelector(".header__salute");
+                salute.innerHTML = `Hasta luego, ${res.user}!`
+
+                setTimeout(() => {
+                    window.location.pathname = "/login.html"
+                }, 2000);
+            } else {
+                console.log("error logging out")
+            }
+        })
+    })
+
     /* productos */
     const form = document.querySelector(".formulario__form");
     form.addEventListener("submit", e => {
@@ -149,3 +170,4 @@ socket.on("server:producto", producto => {
 socket.on("server:mensaje", mensajeEnvio => {
     renderMensaje(mensajeEnvio)
 })
+

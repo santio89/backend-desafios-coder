@@ -61,15 +61,17 @@ app.get("/login", (req, res)=>{
     const {username} = req.query;
     req.session.user = username;
     req.session.admin = true;
-    res.json({status: `log-in successful: ${req.session.user}`})
+   
+    res.json({status:'ok', user: req.session.user})
 })
 
 app.get("/logout", (req, res)=>{
+    const user = req.session.user;
     req.session.destroy(err=>{
         if (err){
-            res.status(500).json({status: "logout error", body: err})
+            res.status(500).json({status: "error", body: err})
         } else{
-            res.json({status: "logout ok"})
+            res.json({status: "ok", user})
         }
     })
 })
