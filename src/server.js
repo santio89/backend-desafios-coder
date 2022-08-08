@@ -1,11 +1,12 @@
 const express = require("express")
 const routesApi = require("./routes/indexApiRoutes").router;
 const routesProdTest = require("./routes/productosTest").router;
+const path = require("path")
 const ChatContainer = require("./Chat")
 const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
 const normalizeMensajes = require("../util/normalize")
-
+const session = require("express-session")
 
 const chat = new ChatContainer("chats", {
     author: {
@@ -20,7 +21,6 @@ const chat = new ChatContainer("chats", {
 });
 
 
-const path = require("path")
 const app = express();
 const port = 8080;
 
@@ -28,8 +28,51 @@ const port = 8080;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use(session({
+    secret: "coderproject",
+    resave: true,
+    saveUninitialized: true,
+}))
+
 /* serve static files */
-app.use(express.static(path.join(__dirname, "../public")))
+app.use(express.static(path.join(__dirname, "../public"))) 
+
+function auth (req, res, next){
+    if (req.session.admin === true){
+        next();
+    } else{
+        return res.sendFile(path.join(__dirname, "../public/login.html"))
+    }
+}
+
+app.get("/", auth, (req,res)=>{res.sendFile(path.join(__dirname, "../public/indexAdmin.html"))})
+
+app.get("/session-test", (req, res)=>{
+    if(req.session.contador){
+        req.session.contador++;
+        return res.send("visitas: "+req.session.contador)
+    } else{
+        req.session.contador = 1;
+        res.send("esta es tu primera visita")
+    }
+})
+
+app.get("/login", (req, res)=>{
+    const {username} = req.query;
+    req.session.user = username;
+    req.session.admin = true;
+    res.json({status: `log-in successful: ${req.session.user}`})
+})
+
+app.get("/logout", (req, res)=>{
+    req.session.destroy(err=>{
+        if (err){
+            res.status(500).json({status: "logout error", body: err})
+        } else{
+            res.json({status: "logout ok"})
+        }
+    })
+})
 
 /* routes main */
 app.use("/api/productos", routesApi)
