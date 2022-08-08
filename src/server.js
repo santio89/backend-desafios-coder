@@ -32,6 +32,9 @@ app.use(session({
     secret: "coderproject",
     resave: true,
     saveUninitialized: true,
+    cookie: {
+        expires: 60000
+    }
 }))
 
 /* serve static files */
