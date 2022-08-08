@@ -41,11 +41,11 @@ function auth (req, res, next){
     if (req.session.admin === true){
         next();
     } else{
-        return res.sendFile(path.join(__dirname, "../public/login.html"))
+        res.sendFile(path.join(__dirname, "../public/login.html"))
     }
 }
 
-app.get("/", auth, (req,res)=>{res.sendFile(path.join(__dirname, "../public/indexAdmin.html"))})
+app.get("/", auth, (req,res)=>{res.sendFile(path.join(__dirname, "../publicAdm/indexAdmin.html"))})
 
 app.get("/session-test", (req, res)=>{
     if(req.session.contador){
