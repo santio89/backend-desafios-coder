@@ -516,8 +516,8 @@ footer p {
   color: white;
 }
 
-.d-none {
-  display: none;
+.v-none {
+  visibility: hidden;
 }
 
 .login {

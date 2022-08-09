@@ -133,9 +133,9 @@ async function renderItems(items, logStatus) {
 function displayTable() {
     const table = document.querySelector(".productos__table")
     const noProd = document.querySelector(".productos__noProd")
-    if (table?.classList?.contains("d-none")) {
-        table.classList.remove("d-none")
-        noProd.classList.add("d-none")
+    if (table?.classList?.contains("v-none")) {
+        table.classList.remove("v-none")
+        noProd.classList.add("v-none")
     }
 }
 
