@@ -213,68 +213,65 @@ function denormalizeMensajes(objMensajes) {
     return { mensajesDenormalizados, porcentajeOptimizacion };
 }
 
+socket.on("server:items", async items => {
+    const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
+    items.mensajes = mensajesDenormalizados
+    items.optimization = porcentajeOptimizacion;
 
-document.addEventListener("DOMContentLoaded", function () {
+    /* fetch status a la session */
+    try {
+        const logged = await fetch("/logged")
+        const logStatus = await logged.json()
 
-    socket.on("server:items", async items => {
-        const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
-        items.mensajes = mensajesDenormalizados
-        items.optimization = porcentajeOptimizacion;
+        renderItems(items, logStatus);
 
-        /* fetch status a la session */
-        try {
-            const logged = await fetch("/logged")
-            const logStatus = await logged.json()
-
-            renderItems(items, logStatus);
-
-            if (logStatus.status === 401) {
-                return
-            }
-        } catch (e) {
-            console.log("error fetching login: ", e)
+        if (logStatus.status === 401) {
+            return
         }
-    })
+    } catch (e) {
+        console.log("error fetching login: ", e)
+    }
+})
 
-    socket.on("server:items-test", async items => {
-        /* server:item-test -> similar a server:items, pero el array de productos lo recibo vacio, y en vez hago un fetch al endpoint mock de productos */
-        const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
-        items.mensajes = mensajesDenormalizados
-        items.optimization = porcentajeOptimizacion;
+socket.on("server:items-test", async items => {
+    /* server:item-test -> similar a server:items, pero el array de productos lo recibo vacio, y en vez hago un fetch al endpoint mock de productos */
+    const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
+    items.mensajes = mensajesDenormalizados
+    items.optimization = porcentajeOptimizacion;
 
-        /* fetch status a la session */
-        try {
-            const logged = await fetch("/logged")
-            const logStatus = await logged.json()
+    /* fetch status a la session */
+    try {
+        const logged = await fetch("/logged")
+        const logStatus = await logged.json()
 
-            renderItems(items, logStatus);
+        renderItems(items, logStatus);
 
-            if (logStatus.status === 401) {
-                return
-            }
-        } catch (e) {
-            console.log("error fetching login: ", e)
+        if (logStatus.status === 401) {
+            return
         }
+    } catch (e) {
+        console.log("error fetching login: ", e)
+    }
 
 
-        displayTable()
-        const mockData = await fetch("/api/productos-test")
-        const mockProducts = await mockData.json()
+    displayTable()
+    const mockData = await fetch("/api/productos-test")
+    const mockProducts = await mockData.json()
 
-        mockProducts.forEach(product => {
-            renderProducto(product)
-        })
+    mockProducts.forEach(product => {
+        renderProducto(product)
     })
+})
 
-    socket.on("server:producto", producto => {
-        displayTable();
-        renderProducto(producto);
-    })
+socket.on("server:producto", producto => {
+    displayTable();
+    renderProducto(producto);
+})
 
-    socket.on("server:mensaje", mensajeEnvio => {
-        renderMensaje(mensajeEnvio)
-    })
-});
+socket.on("server:mensaje", mensajeEnvio => {
+    renderMensaje(mensajeEnvio)
+})
+
 
 
 

@@ -37,9 +37,9 @@ app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
         mongoUrl:
-          "mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority",
+            "mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority",
         mongoStoreOptions,
-      }),
+    }),
     secret: "coderproject",
     resave: true,
     saveUninitialized: true,
@@ -50,49 +50,49 @@ app.use(session({
 }))
 
 /* serve static files */
-app.use(express.static(path.join(__dirname, "../public"))) 
+app.use(express.static(path.join(__dirname, "../public")))
 
-function auth (req, res, next){
-    if (req.session.admin === true){
+function auth(req, res, next) {
+    if (req.session.admin === true) {
         next();
-    } else{
-        res.status(401).json({status: 401, code: "no credentials"})
+    } else {
+        res.status(401).json({ status: 401, code: "no credentials" })
     }
 }
 
-app.get("/logged", (req, res)=>{
-    if (req.session.admin === true){
-        res.json({status: "ok", user: req.session.user})
-    } else{
-        res.status(401).json({status: 401, code: "no credentials"})
+app.get("/logged", (req, res) => {
+    if (req.session.admin === true) {
+        res.json({ status: "ok", user: req.session.user })
+    } else {
+        res.status(401).json({ status: 401, code: "no credentials" })
     }
 })
 
-app.get("/session-test", (req, res)=>{
-    if(req.session.contador){
+app.get("/session-test", (req, res) => {
+    if (req.session.contador) {
         req.session.contador++;
-        return res.send("visitas: "+req.session.contador)
-    } else{
+        return res.send("visitas: " + req.session.contador)
+    } else {
         req.session.contador = 1;
         res.send("esta es tu primera visita")
     }
 })
 
-app.get("/login", (req, res)=>{
-    const {username} = req.query;
+app.get("/login", (req, res) => {
+    const { username } = req.query;
     req.session.user = username;
     req.session.admin = true;
-   
-    res.json({status:'ok', user: req.session.user})
+
+    res.json({ status: 'ok', user: req.session.user })
 })
 
-app.get("/logout", (req, res)=>{
+app.get("/logout", (req, res) => {
     const user = req.session.user;
-    req.session.destroy(err=>{
-        if (err){
-            res.status(500).json({status: "error", body: err})
-        } else{
-            res.json({status: "ok", user})
+    req.session.destroy(err => {
+        if (err) {
+            res.status(500).json({ status: "error", body: err })
+        } else {
+            res.json({ status: "ok", user })
         }
     })
 })
@@ -127,16 +127,16 @@ const io = new IOServer(expressServer);
 io.on("connection", async socket => {
     console.log("Nuevo usuario conectado")
 
-     /*   obtiene productos desde el contenedor de productos. de momento queda comentado ya que estoy probando los datos con mocks (server:items-test)   
+    /*   obtiene productos desde el contenedor de productos. de momento queda comentado ya que estoy probando los datos con mocks (server:items-test)   
 
-        const productos = await contenedorProductos.getAll();
-        socket.emit("server:items", {productos, mensajes}) 
-    */
+       const productos = await contenedorProductos.getAll();
+       socket.emit("server:items", {productos, mensajes}) 
+   */
 
     const mensajes = await chat.getAll();
     /*aca voy a normalizar los mensajes del array antes de mandar al front. tiene sentido normalizar ya que un array de mensajes puede ser pesado y tener redundancias */
     const normalizedMensajes = normalizeMensajes(mensajes);
- 
+
     socket.emit("server:items-test", { productos: [], mensajes: normalizedMensajes })
 
 
