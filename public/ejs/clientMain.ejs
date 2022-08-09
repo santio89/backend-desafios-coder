@@ -11,42 +11,24 @@
     <div class="header__salute"></div>
 </header>
 
-<section class="formulario" id="formulario">
-    <h2>CARGAR PRODUCTO</h2>
-    <form class="formulario__form">
-        <label>Título: <input type="text" name="title" required id="form__title" maxLength={100}
-                pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$" title="Ingresar título"></label>
-        <label>Precio: <input type="text" name="price" required id="form__price" pattern="[0-9]{1,10}" maxLength={10}
-                title="Ingresar precio"></label>
-        <label>Imagen - URL: <input type="text" name="thumbnail" id="form__imgUrl"
-                title="Ingresar url de imagen"></label>
-        <button>Enviar</button>
-    </form>
-</section>
+<% if (user){ %>
+    <section class="formulario" id="formulario">
+        <h2>CARGAR PRODUCTO</h2>
+        <form class="formulario__form">
+            <label>Título: <input type="text" name="title" required id="form__title" maxLength={100}
+                    pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$" title="Ingresar título"></label>
+            <label>Precio: <input type="text" name="price" required id="form__price" pattern="[0-9]{1,10}"
+                    maxLength={10} title="Ingresar precio"></label>
+            <label>Imagen - URL: <input type="text" name="thumbnail" id="form__imgUrl"
+                    title="Ingresar url de imagen"></label>
+            <button>Enviar</button>
+        </form>
+    </section>
 
-<section class="productos" id="productos">
-    <h2>VER PRODUCTOS</h2>
-    <% if (productos.length>0){ %>
-        <table class="productos__table">
-            <tr>
-                <th>TITULO</th>
-                <th>PORTADA</th>
-                <th>PRECIO</th>
-            </tr>
-
-            <% productos.forEach(item=>{%>
-                <tr>
-                    <td>
-                        <%=item.title%>
-                    </td>
-                    <td><img alt="item img" src="<%=item.imgUrl%>" /></td>
-                    <td>$<%=item.price%> USD</td>
-                </tr>
-                <% }) %>
-        </table>
-        <p class="productos__noProd d-none">No hay productos cargados.</p>
-        <% } else {%>
-            <table class="productos__table d-none">
+    <section class="productos" id="productos">
+        <h2>VER PRODUCTOS</h2>
+        <% if (productos.length>0){ %>
+            <table class="productos__table">
                 <tr>
                     <th>TITULO</th>
                     <th>PORTADA</th>
@@ -63,45 +45,74 @@
                     </tr>
                     <% }) %>
             </table>
-            <p class="productos__noProd">No hay productos cargados.</p>
-            <% } %>
-</section>
+            <p class="productos__noProd d-none">No hay productos cargados.</p>
+            <% } else {%>
+                <table class="productos__table d-none">
+                    <tr>
+                        <th>TITULO</th>
+                        <th>PORTADA</th>
+                        <th>PRECIO</th>
+                    </tr>
 
-<section class="chat" id="chat">
-    <h2>CHAT</h2>
-    <form class="chat__container">
-        <fieldset>
-            <legend>USER</legend>
-            <input class="chat__container__nombre" type="email" name="nombre" id="chatNombre"
-                placeholder="Ingresar e-mail..." required autocomplete="off" maxlength="320"
-                pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Ingresar e-mail">
-            <label class="chat__container__nombre--label" for="chatNombre">Nombre:</label>
-        </fieldset>
-        <div class="chat__optimization">Porcentaje de optimización: </div>
-        <div class="chat__container__mensajesBox">
-            <div class="chat__container__mensajes">
-                <%if(mensajes){%>
-                    <% mensajes.forEach(mensaje=>{%>
-                        <div>
-                            <span class="chat__container__mensajes__nombre">
-                                <%=mensaje.author.id%>
-                            </span><span class="chat__container__mensajes__fecha">
-                                <%=new Date(mensaje.createdAt).toLocaleString()%>:
-                            </span><span class="chat__container__mensajes__mensaje">
-                                <%=mensaje.text%>
-                            </span>
-                        </div>
+                    <% productos.forEach(item=>{%>
+                        <tr>
+                            <td>
+                                <%=item.title%>
+                            </td>
+                            <td><img alt="item img" src="<%=item.imgUrl%>" /></td>
+                            <td>$<%=item.price%> USD</td>
+                        </tr>
                         <% }) %>
-                            <% } %>
+                </table>
+                <p class="productos__noProd">No hay productos cargados.</p>
+                <% } %>
+    </section>
+
+    <section class="chat" id="chat">
+        <h2>CHAT</h2>
+        <form class="chat__container">
+            <fieldset>
+                <legend>USER</legend>
+                <input class="chat__container__nombre" type="email" name="nombre" id="chatNombre"
+                    placeholder="Ingresar e-mail..." required autocomplete="off" maxlength="320"
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Ingresar e-mail">
+                <label class="chat__container__nombre--label" for="chatNombre">Nombre:</label>
+            </fieldset>
+            <div class="chat__optimization">Porcentaje de optimización: </div>
+            <div class="chat__container__mensajesBox">
+                <div class="chat__container__mensajes">
+                    <%if(mensajes){%>
+                        <% mensajes.forEach(mensaje=>{%>
+                            <div>
+                                <span class="chat__container__mensajes__nombre">
+                                    <%=mensaje.author.id%>
+                                </span><span class="chat__container__mensajes__fecha">
+                                    <%=new Date(mensaje.createdAt).toLocaleString()%>:
+                                </span><span class="chat__container__mensajes__mensaje">
+                                    <%=mensaje.text%>
+                                </span>
+                            </div>
+                            <% }) %>
+                                <% } %>
+                </div>
             </div>
-        </div>
-        <div class="chat__container__envio">
-            <input class="chat__container__mensaje" type="text" name="nombre" id="chatNombre"
-                placeholder="Escribir mensaje..." required autocomplete="off" maxlength="500" title="Escribir mensaje">
-            <button type="submit">Enviar</button>
-        </div>
-    </form>
-</section>
+            <div class="chat__container__envio">
+                <input class="chat__container__mensaje" type="text" name="nombre" id="chatNombre"
+                    placeholder="Escribir mensaje..." required autocomplete="off" maxlength="500"
+                    title="Escribir mensaje">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </section>
+    <% } else {%>
+    <section class="login">
+        <h2>LOG-IN</h2>
+        <form class="login__form">
+            <input type="text" class="login__input" required placeholder="USER">
+            <button class="login">ENVIAR</button>
+        </form>
+    </section>
+    <% } %>
 
 <footer>
     <p>footer</p>

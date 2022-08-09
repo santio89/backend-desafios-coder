@@ -1,11 +1,39 @@
 const socket = io();
 
-async function renderItems(items) {
+async function renderItems(items, logStatus) {
     /* plantilla */
     const plantillaResponse = await fetch("./ejs/clientMain.ejs");
     const plantilla = await plantillaResponse.text();
-    const html = ejs.render(plantilla, { productos: items.productos, mensajes: items.mensajes });
+    const html = ejs.render(plantilla, { productos: items.productos, mensajes: items.mensajes, user: logStatus.user || null });
     document.getElementById('root').innerHTML = html;
+
+    if (logStatus.status === 401) {
+        /* login */
+        const formLogin = document.querySelector(".login__form");
+        const login = document.querySelector(".login")
+
+        formLogin.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nombre = document.querySelector(".login__input").value;
+
+            fetch(`http://localhost:8080/login?username=${nombre}`).then(res => {
+                return res.json()
+            }).then(res => {
+                if (res.status === "ok") {
+                    window.location.reload();
+                } else {
+                    console.log("error logging in")
+                }
+
+            })
+        })
+
+        login.addEventListener("click", () => {
+            formLogin.requestSubmit();
+        })
+        
+        return;
+    }
 
     /* logout */
     const logout = document.querySelector(".logout");
@@ -20,7 +48,7 @@ async function renderItems(items) {
                 salute.innerHTML = `Hasta luego, ${res.user}!`
 
                 setTimeout(() => {
-                    window.location.pathname = "/login.html"
+                    window.location.reload();
                 }, 2000);
             } else {
                 console.log("error logging out")
@@ -139,11 +167,14 @@ function denormalizeMensajes(objMensajes) {
     return { mensajesDenormalizados, porcentajeOptimizacion };
 }
 
-socket.on("server:items", items => {
+socket.on("server:items", async items => {
     const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
     items.mensajes = mensajesDenormalizados
     items.optimization = porcentajeOptimizacion;
-    renderItems(items);
+
+    const logged = await fetch("http://localhost:8080/")
+    const logStatus = await logged.json()
+    renderItems(items, logStatus);
 })
 
 socket.on("server:items-test", async items => {
@@ -151,8 +182,14 @@ socket.on("server:items-test", async items => {
     const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
     items.mensajes = mensajesDenormalizados
     items.optimization = porcentajeOptimizacion;
-    renderItems(items);
+    const logged = await fetch("http://localhost:8080/logged")
+    const logStatus = await logged.json()
 
+    renderItems(items, logStatus);
+
+    if (logStatus.status === 401) {
+        return
+    }
 
     const mockData = await fetch("http://localhost:8080/api/productos-test")
     const mockProducts = await mockData.json()
@@ -170,4 +207,5 @@ socket.on("server:producto", producto => {
 socket.on("server:mensaje", mensajeEnvio => {
     renderMensaje(mensajeEnvio)
 })
+
 

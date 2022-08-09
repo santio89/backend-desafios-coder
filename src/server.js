@@ -44,11 +44,17 @@ function auth (req, res, next){
     if (req.session.admin === true){
         next();
     } else{
-        res.sendFile(path.join(__dirname, "../public/login.html"))
+        res.status(401).json({status: 401, code: "no credentials"})
     }
 }
 
-app.get("/", auth, (req,res)=>{res.sendFile(path.join(__dirname, "../publicAdm/indexAdmin.html"))})
+app.get("/logged", (req, res)=>{
+    if (req.session.admin === true){
+        res.json({status: "ok", user: req.session.user})
+    } else{
+        res.status(401).json({status: 401, code: "no credentials"})
+    }
+})
 
 app.get("/session-test", (req, res)=>{
     if(req.session.contador){
