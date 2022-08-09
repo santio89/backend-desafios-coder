@@ -44,6 +44,7 @@ async function renderItems(items, logStatus) {
         }).then(res => {
             if (res.status === "ok") {
                 const salute = document.querySelector(".header__salute");
+                salute.style.visibility = "visible";
                 salute.innerHTML = `Hasta luego, ${res.user}!`
 
                 setTimeout(() => {
@@ -132,7 +133,7 @@ async function renderItems(items, logStatus) {
 function displayTable() {
     const table = document.querySelector(".productos__table")
     const noProd = document.querySelector(".productos__noProd")
-    if (table?.classList?.contains("d-none") || !(noProd?.classList?.contains("d-none"))) {
+    if (table?.classList?.contains("d-none")) {
         table.classList.remove("d-none")
         noProd.classList.add("d-none")
     }
@@ -147,7 +148,7 @@ function renderProducto(item) {
     const imgTd = document.createElement("td")
     const img = document.createElement("img")
     const priceTd = document.createElement("td")
-    
+
     titleTd.innerHTML = item.title;
     img.src = item.imgUrl;
     priceTd.innerHTML = `$${item.price} USD`
@@ -157,11 +158,11 @@ function renderProducto(item) {
     row.appendChild(priceTd)
     table.appendChild(row)
 
-/*     table.innerHTML += `<tr>
-    <td>${item.title}</td>
-    <td><img alt="item img" src="${item.imgUrl}"/></td>
-    <td>$${item.price} USD</td>
-    </tr>` */
+    /*     table.innerHTML += `<tr>
+        <td>${item.title}</td>
+        <td><img alt="item img" src="${item.imgUrl}"/></td>
+        <td>$${item.price} USD</td>
+        </tr>` */
 }
 
 function renderMensaje(mensajeEnvio) {
@@ -212,63 +213,68 @@ function denormalizeMensajes(objMensajes) {
     return { mensajesDenormalizados, porcentajeOptimizacion };
 }
 
-socket.on("server:items", async items => {
-    const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
-    items.mensajes = mensajesDenormalizados
-    items.optimization = porcentajeOptimizacion;
 
-    /* fetch status a la session */
-    try {
-        const logged = await fetch("/logged")
-        const logStatus = await logged.json()
+document.addEventListener("DOMContentLoaded", function () {
 
-        renderItems(items, logStatus);
+    socket.on("server:items", async items => {
+        const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
+        items.mensajes = mensajesDenormalizados
+        items.optimization = porcentajeOptimizacion;
 
-        if (logStatus.status === 401) {
-            return
+        /* fetch status a la session */
+        try {
+            const logged = await fetch("/logged")
+            const logStatus = await logged.json()
+
+            renderItems(items, logStatus);
+
+            if (logStatus.status === 401) {
+                return
+            }
+        } catch (e) {
+            console.log("error fetching login: ", e)
         }
-    } catch (e) {
-        console.log("error fetching login: ", e)
-    }
-})
-
-socket.on("server:items-test", async items => {
-    /* server:item-test -> similar a server:items, pero el array de productos lo recibo vacio, y en vez hago un fetch al endpoint mock de productos */
-    const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
-    items.mensajes = mensajesDenormalizados
-    items.optimization = porcentajeOptimizacion;
-
-    /* fetch status a la session */
-    try {
-        const logged = await fetch("/logged")
-        const logStatus = await logged.json()
-
-        renderItems(items, logStatus);
-
-        if (logStatus.status === 401) {
-            return
-        }
-    } catch (e) {
-        console.log("error fetching login: ", e)
-    }
-    
-
-    displayTable()
-    const mockData = await fetch("/api/productos-test")
-    const mockProducts = await mockData.json()
-
-    mockProducts.forEach(product => {
-        renderProducto(product)
     })
-})
 
-socket.on("server:producto", producto => {
-    displayTable();
-    renderProducto(producto);
-})
+    socket.on("server:items-test", async items => {
+        /* server:item-test -> similar a server:items, pero el array de productos lo recibo vacio, y en vez hago un fetch al endpoint mock de productos */
+        const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
+        items.mensajes = mensajesDenormalizados
+        items.optimization = porcentajeOptimizacion;
 
-socket.on("server:mensaje", mensajeEnvio => {
-    renderMensaje(mensajeEnvio)
-})
+        /* fetch status a la session */
+        try {
+            const logged = await fetch("/logged")
+            const logStatus = await logged.json()
+
+            renderItems(items, logStatus);
+
+            if (logStatus.status === 401) {
+                return
+            }
+        } catch (e) {
+            console.log("error fetching login: ", e)
+        }
+
+
+        displayTable()
+        const mockData = await fetch("/api/productos-test")
+        const mockProducts = await mockData.json()
+
+        mockProducts.forEach(product => {
+            renderProducto(product)
+        })
+    })
+
+    socket.on("server:producto", producto => {
+        displayTable();
+        renderProducto(producto);
+    })
+
+    socket.on("server:mensaje", mensajeEnvio => {
+        renderMensaje(mensajeEnvio)
+    })
+});
+
 
 

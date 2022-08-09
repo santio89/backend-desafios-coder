@@ -208,6 +208,9 @@ h2 {
         font-weight: bold;
         color: white;
         text-shadow: 1px 1px 0 coral;
+        background: rgba(30, 30, 30, .4);
+        border-radius: .4em;
+        visibility: hidden;
     }
 }
 
@@ -619,7 +622,7 @@ footer {
             &:hover {
                 transform: translate(2px, 2px)
             }
-            
+
             &:active {
                 transform: translate(4px, 4px)
             }
