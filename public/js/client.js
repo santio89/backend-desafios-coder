@@ -132,7 +132,7 @@ async function renderItems(items, logStatus) {
 function displayTable() {
     const table = document.querySelector(".productos__table")
     const noProd = document.querySelector(".productos__noProd")
-    if (table?.classList?.contains("d-none") || !noProd?.classList?.contains("d-none")) {
+    if (table?.classList?.contains("d-none") || !(noProd?.classList?.contains("d-none"))) {
         table.classList.remove("d-none")
         noProd.classList.add("d-none")
     }
@@ -252,7 +252,7 @@ socket.on("server:items-test", async items => {
         console.log("error fetching login: ", e)
     }
     
-    
+
     displayTable()
     const mockData = await fetch("/api/productos-test")
     const mockProducts = await mockData.json()
