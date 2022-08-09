@@ -251,7 +251,9 @@ socket.on("server:items-test", async items => {
     } catch (e) {
         console.log("error fetching login: ", e)
     }
-
+    
+    
+    displayTable()
     const mockData = await fetch("/api/productos-test")
     const mockProducts = await mockData.json()
 
