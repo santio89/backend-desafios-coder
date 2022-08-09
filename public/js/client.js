@@ -16,7 +16,7 @@ async function renderItems(items, logStatus) {
             e.preventDefault();
             const nombre = document.querySelector(".login__input").value;
 
-            fetch(`http://localhost:8080/login?username=${nombre}`).then(res => {
+            fetch(`/login?username=${nombre}`).then(res => {
                 return res.json()
             }).then(res => {
                 if (res.status === "ok") {
@@ -39,7 +39,7 @@ async function renderItems(items, logStatus) {
     const logout = document.querySelector(".logout");
     logout.addEventListener("click", (e) => {
         e.preventDefault();
-        fetch(`http://localhost:8080/logout`).then(res => {
+        fetch(`/logout`).then(res => {
             return res.json()
         }).then(res => {
             if (res.status === "ok") {
@@ -62,7 +62,7 @@ async function renderItems(items, logStatus) {
 
         /* checkeo tener session activa */
         try {
-            const logged = await fetch("http://localhost:8080/logged")
+            const logged = await fetch("/logged")
             const logStatus = await logged.json()
 
             if (logStatus.status === 401) {
@@ -98,7 +98,7 @@ async function renderItems(items, logStatus) {
 
         /* checkeo tener session activa */
         try {
-            const logged = await fetch("http://localhost:8080/logged")
+            const logged = await fetch("/logged")
             const logStatus = await logged.json()
 
             if (logStatus.status === 401) {
@@ -219,7 +219,7 @@ socket.on("server:items", async items => {
 
     /* fetch status a la session */
     try {
-        const logged = await fetch("http://localhost:8080/logged")
+        const logged = await fetch("/logged")
         const logStatus = await logged.json()
 
         renderItems(items, logStatus);
@@ -240,7 +240,7 @@ socket.on("server:items-test", async items => {
 
     /* fetch status a la session */
     try {
-        const logged = await fetch("http://localhost:8080/logged")
+        const logged = await fetch("/logged")
         const logStatus = await logged.json()
 
         renderItems(items, logStatus);
@@ -252,7 +252,7 @@ socket.on("server:items-test", async items => {
         console.log("error fetching login: ", e)
     }
 
-    const mockData = await fetch("http://localhost:8080/api/productos-test")
+    const mockData = await fetch("/api/productos-test")
     const mockProducts = await mockData.json()
 
     mockProducts.forEach(product => {
