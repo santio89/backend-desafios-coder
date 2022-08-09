@@ -15,8 +15,7 @@
     <section class="formulario" id="formulario">
         <h2>CARGAR PRODUCTO</h2>
         <form class="formulario__form">
-            <label>Título: <input type="text" name="title" required id="form__title" maxLength={100}
-                    pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$" title="Ingresar título"></label>
+            <label>Título: <input type="text" name="title" required id="form__title" maxLength={50} title="Ingresar título"></label>
             <label>Precio: <input type="text" name="price" required id="form__price" pattern="[0-9]{1,10}"
                     maxLength={10} title="Ingresar precio"></label>
             <label>Imagen - URL: <input type="text" name="thumbnail" id="form__imgUrl"

@@ -547,4 +547,11 @@ footer p {
   font-weight: bold;
   color: rgb(30, 30, 30);
   text-shadow: 1px 1px 0 coral;
+  transition: 200ms;
+}
+.login__form button:hover {
+  transform: translate(2px, 2px);
+}
+.login__form button:active {
+  transform: translate(4px, 4px);
 }/*# sourceMappingURL=main.css.map */

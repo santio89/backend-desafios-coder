@@ -194,11 +194,12 @@ h2 {
     padding-bottom: 2%;
 }
 
-.header{
-    &__title{
+.header {
+    &__title {
         line-height: 1;
     }
-    &__salute{
+
+    &__salute {
         position: fixed;
         top: 60px;
         right: 10px;
@@ -224,7 +225,7 @@ section {
     border-bottom: 4px dashed coral;
     padding-bottom: 4%;
 
-    &:first-of-type{
+    &:first-of-type {
         margin-top: calc(60px);
     }
 }
@@ -498,14 +499,16 @@ section {
                 border-radius: 6px;
             }
 
-            &__nombre{
+            &__nombre {
                 font-weight: bold;
                 color: coral;
             }
-            &__fecha{
+
+            &__fecha {
                 color: rgb(30, 30, 30);
             }
-            &__mensaje{
+
+            &__mensaje {
                 color: white;
             }
         }
@@ -539,11 +542,11 @@ section {
 
     }
 
-    &__optimization{
+    &__optimization {
         padding: .4em;
         text-align: center;
         color: white;
-        background:rgb(30, 30, 30, .4);
+        background: rgb(30, 30, 30, .4);
         width: 100%;
         border-radius: .4em;
         margin: .4rem 0;
@@ -576,18 +579,18 @@ footer {
     }
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-.login{
+.login {
     display: flex;
     justify-content: start;
     align-items: center;
     flex-flow: column wrap;
     font-size: 2rem;
 
-    &__form{
+    &__form {
         width: min(100%, 800px);
         display: flex;
         justify-content: start;
@@ -595,7 +598,7 @@ footer {
         flex-flow: column wrap;
         gap: 2rem;
 
-        input{
+        input {
             background: none;
             outline: none;
             border: none;
@@ -606,11 +609,20 @@ footer {
             text-shadow: 2px 2px 0 rgb(30, 30, 30);
         }
 
-        button{
+        button {
             font-size: 1.2em;
             font-weight: bold;
             color: rgb(30, 30, 30);
             text-shadow: 1px 1px 0 coral;
+            transition: 200ms;
+
+            &:hover {
+                transform: translate(2px, 2px)
+            }
+            
+            &:active {
+                transform: translate(4px, 4px)
+            }
         }
     }
 }

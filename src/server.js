@@ -7,6 +7,10 @@ const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
 const normalizeMensajes = require("../util/normalize")
 const session = require("express-session")
+const cookieParser = require("cookie-parser")
+const MongoStore = require("connect-mongo")
+
+const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const chat = new ChatContainer("chats", {
     author: {
@@ -28,12 +32,19 @@ const port = 8080;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+
+app.use(cookieParser())
 app.use(session({
+    store: MongoStore.create({
+        mongoUrl:
+          "mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority",
+        mongoStoreOptions,
+      }),
     secret: "coderproject",
     resave: true,
     saveUninitialized: true,
     cookie: {
-        expires: 60000
+        maxAge: 60000
     }
 }))
 
@@ -86,8 +97,8 @@ app.get("/logout", (req, res)=>{
 })
 
 /* routes main */
-app.use("/api/productos", routesApi)
-app.use("/api/productos-test", routesProdTest)
+app.use("/api/productos", auth, routesApi)
+app.use("/api/productos-test", auth, routesProdTest)
 
 /* not found */
 app.use((req, res) => {

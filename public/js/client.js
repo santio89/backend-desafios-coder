@@ -31,7 +31,7 @@ async function renderItems(items, logStatus) {
         login.addEventListener("click", () => {
             formLogin.requestSubmit();
         })
-        
+
         return;
     }
 
@@ -42,7 +42,6 @@ async function renderItems(items, logStatus) {
         fetch(`http://localhost:8080/logout`).then(res => {
             return res.json()
         }).then(res => {
-            console.log(res)
             if (res.status === "ok") {
                 const salute = document.querySelector(".header__salute");
                 salute.innerHTML = `Hasta luego, ${res.user}!`
@@ -58,8 +57,24 @@ async function renderItems(items, logStatus) {
 
     /* productos */
     const form = document.querySelector(".formulario__form");
-    form.addEventListener("submit", e => {
+    form.addEventListener("submit", async e => {
         e.preventDefault();
+
+        /* checkeo tener session activa */
+        try {
+            const logged = await fetch("http://localhost:8080/logged")
+            const logStatus = await logged.json()
+
+            if (logStatus.status === 401) {
+                window.location.reload();
+                return
+            }
+
+        } catch (e) {
+            console.log("error fetching login: ", e)
+        }
+
+
         const title = document.getElementById("form__title")
         const price = document.getElementById("form__price")
         const imgUrl = document.getElementById("form__imgUrl")
@@ -78,8 +93,22 @@ async function renderItems(items, logStatus) {
     const mensajesContainer = document.querySelector(".chat__container__mensajes");
     mensajesContainer.scroll({ top: mensajesContainer.scrollHeight, behavior: "smooth" })
 
-    chatForm.addEventListener("submit", (e) => {
+    chatForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        /* checkeo tener session activa */
+        try {
+            const logged = await fetch("http://localhost:8080/logged")
+            const logStatus = await logged.json()
+
+            if (logStatus.status === 401) {
+                window.location.reload();
+                return
+            }
+
+        } catch (e) {
+            console.log("error fetching login: ", e)
+        }
 
         const mensajeEnvio = {
             author: {
@@ -100,14 +129,39 @@ async function renderItems(items, logStatus) {
     renderOptimization(items.optimization)
 }
 
-function renderProducto(item) {
-    displayTable()
+function displayTable() {
     const table = document.querySelector(".productos__table")
-    table.innerHTML += `<tr>
+    const noProd = document.querySelector(".productos__noProd")
+    if (table?.classList?.contains("d-none") || !noProd?.classList?.contains("d-none")) {
+        table.classList.remove("d-none")
+        noProd.classList.add("d-none")
+    }
+}
+
+function renderProducto(item) {
+    displayTable();
+    const table = document.querySelector(".productos__table")
+
+    const row = document.createElement("tr");
+    const titleTd = document.createElement("td")
+    const imgTd = document.createElement("td")
+    const img = document.createElement("img")
+    const priceTd = document.createElement("td")
+    
+    titleTd.innerHTML = item.title;
+    img.src = item.imgUrl;
+    priceTd.innerHTML = item.price
+    imgTd.appendChild(img)
+    row.appendChild(titleTd)
+    row.appendChild(imgTd)
+    row.appendChild(priceTd)
+    table.appendChild(row)
+
+/*     table.innerHTML += `<tr>
     <td>${item.title}</td>
     <td><img alt="item img" src="${item.imgUrl}"/></td>
     <td>$${item.price} USD</td>
-</tr>`
+    </tr>` */
 }
 
 function renderMensaje(mensajeEnvio) {
@@ -120,15 +174,6 @@ function renderMensaje(mensajeEnvio) {
 function renderOptimization(optimization) {
     const optimizationContainer = document.querySelector(".chat__optimization")
     optimizationContainer.innerHTML += `<b>${optimization}%</b>`;
-}
-
-function displayTable() {
-    const table = document.querySelector(".productos__table")
-    const noProd = document.querySelector(".productos__noProd")
-    if (table?.classList?.contains("d-none")) {
-        table.classList.remove("d-none")
-        noProd.classList.add("d-none")
-    }
 }
 
 function denormalizeMensajes(objMensajes) {
@@ -172,9 +217,19 @@ socket.on("server:items", async items => {
     items.mensajes = mensajesDenormalizados
     items.optimization = porcentajeOptimizacion;
 
-    const logged = await fetch("http://localhost:8080/")
-    const logStatus = await logged.json()
-    renderItems(items, logStatus);
+    /* fetch status a la session */
+    try {
+        const logged = await fetch("http://localhost:8080/logged")
+        const logStatus = await logged.json()
+
+        renderItems(items, logStatus);
+
+        if (logStatus.status === 401) {
+            return
+        }
+    } catch (e) {
+        console.log("error fetching login: ", e)
+    }
 })
 
 socket.on("server:items-test", async items => {
@@ -182,18 +237,24 @@ socket.on("server:items-test", async items => {
     const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
     items.mensajes = mensajesDenormalizados
     items.optimization = porcentajeOptimizacion;
-    const logged = await fetch("http://localhost:8080/logged")
-    const logStatus = await logged.json()
 
-    renderItems(items, logStatus);
+    /* fetch status a la session */
+    try {
+        const logged = await fetch("http://localhost:8080/logged")
+        const logStatus = await logged.json()
 
-    if (logStatus.status === 401) {
-        return
+        renderItems(items, logStatus);
+
+        if (logStatus.status === 401) {
+            return
+        }
+    } catch (e) {
+        console.log("error fetching login: ", e)
     }
 
     const mockData = await fetch("http://localhost:8080/api/productos-test")
     const mockProducts = await mockData.json()
-    displayTable();
+
     mockProducts.forEach(product => {
         renderProducto(product)
     })
