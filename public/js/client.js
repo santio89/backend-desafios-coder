@@ -150,7 +150,7 @@ function renderProducto(item) {
     
     titleTd.innerHTML = item.title;
     img.src = item.imgUrl;
-    priceTd.innerHTML = item.price
+    priceTd.innerHTML = `$${item.price} USD`
     imgTd.appendChild(img)
     row.appendChild(titleTd)
     row.appendChild(imgTd)
