@@ -45,7 +45,8 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         maxAge: 60000
-    }
+    },
+    rolling: true
 }))
 
 /* serve static files */
