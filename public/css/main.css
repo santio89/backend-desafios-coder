@@ -109,6 +109,19 @@ body {
   height: 100%;
 }
 
+.header__title {
+  color: coral;
+  font-weight: bold;
+  font-size: clamp(1.2rem, 1.2rem + 1vw, 1.8rem);
+  margin-left: 1rem;
+  padding: 0.2em;
+  text-decoration: none;
+  border-radius: 0.1em;
+}
+.header__title:focus-visible {
+  outline: 2px dashed coral;
+}
+
 header {
   width: 100%;
   height: 60px;
@@ -116,7 +129,6 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  overflow: hidden;
 }
 header nav {
   width: 100%;
@@ -125,23 +137,12 @@ header nav {
   justify-content: space-between;
   align-items: center;
 }
-header nav a {
-  color: coral;
-  font-weight: bold;
-  font-size: 1.8rem;
-  margin-left: 1rem;
-  padding: 0.2em;
-  text-decoration: none;
-  border-radius: 0.1em;
-}
-header nav a:focus-visible {
-  outline: 2px dashed coral;
-}
 header nav ul {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: stretch;
+  gap: clamp(0.4rem, 0.4rem + 1vw, 1.8rem);
   list-style: none;
   margin-right: 1rem;
 }
@@ -149,10 +150,10 @@ header nav ul li {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  width: 140px;
 }
-header nav ul li a, header nav ul li button {
-  padding: 0.2em 1rem;
+header nav ul li a,
+header nav ul li button {
+  padding: 0.2em clamp(0.2rem, 0.2rem + 1vw, 1rem);
   font-weight: bold;
   color: white;
   text-decoration: none;
@@ -162,9 +163,11 @@ header nav ul li a, header nav ul li button {
   align-items: center;
   border-radius: 0;
   margin: 0;
-  width: 140px;
+  font-size: clamp(0.8rem, 0.8rem + 2vw, 1.8rem);
 }
-header nav ul li a:hover, header nav ul li a:focus, header nav ul li button:hover, header nav ul li button:focus {
+header nav ul li a:hover, header nav ul li a:focus,
+header nav ul li button:hover,
+header nav ul li button:focus {
   background: coral;
 }
 
@@ -191,9 +194,10 @@ h2 {
   font-weight: bold;
   color: white;
   text-shadow: 1px 1px 0 coral;
-  background: rgba(30, 30, 30, 0.4);
+  background: rgb(30, 30, 30);
   border-radius: 0.4em;
   visibility: hidden;
+  z-index: 1;
 }
 
 section {
@@ -526,7 +530,6 @@ footer p {
   justify-content: start;
   align-items: center;
   flex-flow: column wrap;
-  font-size: 2rem;
 }
 .login__form {
   width: min(100%, 800px);
@@ -535,6 +538,7 @@ footer p {
   align-items: center;
   flex-flow: column wrap;
   gap: 2rem;
+  font-size: 2rem;
 }
 .login__form input {
   background: none;
@@ -558,4 +562,17 @@ footer p {
 }
 .login__form button:active {
   transform: translate(4px, 4px);
+}
+
+@media (max-width: 720px) {
+  header nav {
+    justify-content: center;
+  }
+  .header__title {
+    position: absolute;
+    top: 62px;
+    left: 2%;
+    color: coral;
+    font-size: 1.4rem;
+  }
 }/*# sourceMappingURL=main.css.map */

@@ -228,7 +228,7 @@ socket.on("server:items", async items => {
         const logged = await fetch("/logged")
         const logStatus = await logged.json()
 
-        renderItems(items, logStatus);
+        await renderItems(items, logStatus);
 
         if (logStatus.status === 401) {
             return
@@ -249,22 +249,22 @@ socket.on("server:items-test", async items => {
         const logged = await fetch("/logged")
         const logStatus = await logged.json()
 
-        renderItems(items, logStatus);
+        await renderItems(items, logStatus);
 
         if (logStatus.status === 401) {
             return
         }
-
-        displayTable()
-        const mockData = await fetch("/api/productos-test")
-        const mockProducts = await mockData.json()
-
-        mockProducts.forEach(product => {
-            renderProducto(product)
-        })
     } catch (e) {
         console.log("error fetching login: ", e)
     }
+
+    displayTable()
+    const mockData = await fetch("/api/productos-test")
+    const mockProducts = await mockData.json()
+
+    mockProducts.forEach(product => {
+        renderProducto(product)
+    })
 })
 
 socket.on("server:producto", producto => {

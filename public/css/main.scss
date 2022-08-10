@@ -115,6 +115,20 @@ body {
     height: 100%;
 }
 
+.header__title {
+    color: coral;
+    font-weight: bold;
+    font-size: clamp(1.2rem, 1.2rem + 1vw, 1.8rem);
+    margin-left: 1rem;
+    padding: .2em;
+    text-decoration: none;
+    border-radius: .1em;
+
+    &:focus-visible {
+        outline: 2px dashed coral;
+    }
+}
+
 header {
     width: 100%;
     height: 60px;
@@ -122,7 +136,6 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    overflow: hidden;
 
     nav {
         width: 100%;
@@ -131,25 +144,12 @@ header {
         justify-content: space-between;
         align-items: center;
 
-        a {
-            color: coral;
-            font-weight: bold;
-            font-size: 1.8rem;
-            margin-left: 1rem;
-            padding: .2em;
-            text-decoration: none;
-            border-radius: .1em;
-
-            &:focus-visible {
-                outline: 2px dashed coral;
-            }
-        }
-
         ul {
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: stretch;
+            gap: clamp(.4rem, .4rem + 1vw, 1.8rem);
             list-style: none;
             margin-right: 1rem;
 
@@ -157,10 +157,10 @@ header {
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: center;
-                width: 140px;
 
-                a, button {
-                    padding: .2em 1rem;
+                a,
+                button {
+                    padding: .2em clamp(.2rem, .2rem + 1vw, 1rem);
                     font-weight: bold;
                     color: white;
                     text-decoration: none;
@@ -170,7 +170,7 @@ header {
                     align-items: center;
                     border-radius: 0;
                     margin: 0;
-                    width: 140px;
+                    font-size: clamp(.8rem, .8rem + 2vw, 1.8rem);
 
                     &:hover,
                     &:focus {
@@ -207,9 +207,10 @@ h2 {
         font-weight: bold;
         color: white;
         text-shadow: 1px 1px 0 coral;
-        background: rgba(30, 30, 30, .4);
+        background: rgba(30, 30, 30);
         border-radius: .4em;
         visibility: hidden;
+        z-index: 1;
     }
 }
 
@@ -590,7 +591,6 @@ footer {
     justify-content: start;
     align-items: center;
     flex-flow: column wrap;
-    font-size: 2rem;
 
     &__form {
         width: min(100%, 800px);
@@ -599,6 +599,7 @@ footer {
         align-items: center;
         flex-flow: column wrap;
         gap: 2rem;
+        font-size: 2rem;
 
         input {
             background: none;
@@ -626,5 +627,20 @@ footer {
                 transform: translate(4px, 4px)
             }
         }
+    }
+}
+
+
+@media (max-width: 720px) {
+    header nav {
+        justify-content: center;
+    }
+
+    .header__title {
+        position: absolute;
+        top: 62px;
+        left: 2%;
+        color: coral;
+        font-size: 1.4rem;
     }
 }
