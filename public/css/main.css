@@ -322,7 +322,7 @@ section:first-of-type {
 }
 .productos table th,
 .productos table td {
-  padding: 1em 2em;
+  padding: clamp(0.4em, 0.4em + 1vw, 1em) clamp(0.8em, 0.8em + 1vw, 2em);
   text-align: center;
   display: flex;
   justify-content: center;
@@ -348,7 +348,7 @@ section:first-of-type {
 }
 .productos table img {
   aspect-ratio: 5/4;
-  width: clamp(60px, 60px + 6vw, 420px);
+  width: clamp(50px, 50px + 10vw, 280px);
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 0.2em;

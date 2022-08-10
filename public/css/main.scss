@@ -354,7 +354,7 @@ section {
 
         th,
         td {
-            padding: 1em 2em;
+            padding: clamp(.4em, .4em + 1vw, 1em) clamp(.8em, .8em + 1vw, 2em);
             text-align: center;
             display: flex;
             justify-content: center;
@@ -388,7 +388,7 @@ section {
 
         img {
             aspect-ratio: 5/4;
-            width: clamp(60px, 60px + 6vw, 420px);
+            width: clamp(50px, 50px + 10vw, 280px);
             object-fit: cover;
             border-radius: .2em;
         }
