@@ -348,7 +348,7 @@ section:first-of-type {
 }
 .productos table img {
   aspect-ratio: 5/4;
-  width: clamp(80px, 80px + 4vw, 320px);
+  width: clamp(60px, 60px + 6vw, 420px);
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 0.2em;
