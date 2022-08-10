@@ -207,7 +207,7 @@ h2 {
         font-weight: bold;
         color: white;
         text-shadow: 1px 1px 0 coral;
-        background: rgba(30, 30, 30);
+        background: rgba(30, 30, 30, .8);
         border-radius: .4em;
         visibility: hidden;
         z-index: 1;
@@ -642,5 +642,6 @@ footer {
         left: 2%;
         color: coral;
         font-size: 1.4rem;
+        background-color: rgb(30, 30, 30, .8);
     }
 }
