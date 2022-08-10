@@ -138,9 +138,9 @@ async function renderItems(items, logStatus) {
 function displayTable() {
     const table = document.querySelector(".productos__table")
     const noProd = document.querySelector(".productos__noProd")
-    if (table?.classList?.contains("v-none")) {
-        table.classList.remove("v-none")
-        noProd.classList.add("v-none")
+    if (table?.classList?.contains("d-none")) {
+        table.classList.remove("d-none")
+        noProd.classList.add("d-none")
     }
 }
 
@@ -254,18 +254,17 @@ socket.on("server:items-test", async items => {
         if (logStatus.status === 401) {
             return
         }
+
+        displayTable()
+        const mockData = await fetch("/api/productos-test")
+        const mockProducts = await mockData.json()
+
+        mockProducts.forEach(product => {
+            renderProducto(product)
+        })
     } catch (e) {
         console.log("error fetching login: ", e)
     }
-
-
-    displayTable()
-    const mockData = await fetch("/api/productos-test")
-    const mockProducts = await mockData.json()
-
-    mockProducts.forEach(product => {
-        renderProducto(product)
-    })
 })
 
 socket.on("server:producto", producto => {
