@@ -318,21 +318,25 @@ section:first-of-type {
   outline: 4px solid rgb(90, 90, 90);
   border-radius: 0.8em;
   font-size: clamp(0.4rem, 0.4rem + 1.64vw, 1.4rem);
+  line-height: 1.4;
 }
-.productos table tr,
 .productos table th,
 .productos table td {
-  padding: 0.4em 2em;
+  padding: 1em 2em;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.productos table tr {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 .productos table tr td:first-child {
   border-left: none;
 }
 .productos table tr td:last-child {
   border-right: none;
-}
-.productos table tr:last-child td {
-  border-bottom: none;
 }
 .productos table td {
   border: 1px dashed rgb(50, 50, 50);
