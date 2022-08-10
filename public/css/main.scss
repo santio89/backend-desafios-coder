@@ -97,8 +97,6 @@ button {
     width: 100%;
 }
 
-
-
 body {
     display: flex;
     flex-flow: column wrap;
@@ -161,7 +159,7 @@ header {
                 justify-content: center;
                 width: 140px;
 
-                a {
+                a, button {
                     padding: .2em 1rem;
                     font-weight: bold;
                     color: white;
@@ -201,10 +199,11 @@ h2 {
 
     &__salute {
         position: fixed;
-        top: 60px;
-        right: 10px;
+        top: 70px;
+        right: 2%;
         padding: 1.4rem;
-        font-size: 1.4rem;
+        line-height: 1.4;
+        font-size: clamp(.8rem, .8rem + .8vw, 1.8rem);
         font-weight: bold;
         color: white;
         text-shadow: 1px 1px 0 coral;

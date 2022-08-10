@@ -10,7 +10,6 @@ async function renderItems(items, logStatus) {
     if (logStatus.status === 401) {
         /* login */
         const formLogin = document.querySelector(".login__form");
-        const login = document.querySelector(".login")
 
         formLogin.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -28,12 +27,18 @@ async function renderItems(items, logStatus) {
             })
         })
 
-        login.addEventListener("click", () => {
-            formLogin.requestSubmit();
-        })
-
         return;
     }
+
+    /* login */
+    const salute = document.querySelector(".header__salute");
+    salute.style.visibility = "visible";
+    salute.innerHTML = `Bievenido, ${logStatus.user}!`
+
+    const loginSaluteTimeout = setTimeout(() => {
+        salute.innerHTML = ``;
+        salute.style.visibility = "hidden";
+    }, 2000);
 
     /* logout */
     const logout = document.querySelector(".logout");
@@ -43,7 +48,7 @@ async function renderItems(items, logStatus) {
             return res.json()
         }).then(res => {
             if (res.status === "ok") {
-                const salute = document.querySelector(".header__salute");
+                clearTimeout(loginSaluteTimeout);
                 salute.style.visibility = "visible";
                 salute.innerHTML = `Hasta luego, ${res.user}!`
 
