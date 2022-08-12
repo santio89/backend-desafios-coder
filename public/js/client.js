@@ -172,15 +172,26 @@ function renderProducto(item) {
 
 function renderMensaje(mensajeEnvio) {
     const mensajesContainer = document.querySelector(".chat__container__mensajes");
-    document.createElement
-    mensajesContainer.innerHTML += `<div class="chat__container__mensajes__msg"><span class="chat__container__mensajes__nombre">${mensajeEnvio.author.id}</span><span class="chat__container__mensajes__fecha"> ${new Date(mensajeEnvio.createdAt).toLocaleString()}: </span></div>`;
+
+    const mensajeContainer = document.createElement("div");
+
+    const nombre = document.createElement("span");
+    nombre.textContent = mensajeEnvio.author.id;
+    nombre.classList.add("chat__container__mensajes__nombre")
+
+    const fecha = document.createElement("span");
+    fecha.textContent = `${new Date(mensajeEnvio.createdAt).toLocaleString()}: `;
+    fecha.classList.add("chat__container__mensajes__fecha")
 
     const mensaje = document.createElement("span");
     mensaje.classList.add("chat__container__mensajes__mensaje");
     mensaje.textContent = mensajeEnvio.text;
 
-    const msg = document.querySelector(".chat__container__mensajes__msg")
-    msg.appendChild(mensaje);
+    mensajeContainer.appendChild(nombre);
+    mensajeContainer.appendChild(fecha);
+    mensajeContainer.appendChild(mensaje);
+
+    mensajesContainer.appendChild(mensajeContainer);
 
     mensajesContainer.scroll({ top: mensajesContainer.scrollHeight, behavior: "smooth" })
 }
