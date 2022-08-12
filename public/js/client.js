@@ -172,7 +172,15 @@ function renderProducto(item) {
 
 function renderMensaje(mensajeEnvio) {
     const mensajesContainer = document.querySelector(".chat__container__mensajes");
-    mensajesContainer.innerHTML += `<div><span class="chat__container__mensajes__nombre">${mensajeEnvio.author.id}</span><span class="chat__container__mensajes__fecha"> ${new Date(mensajeEnvio.createdAt).toLocaleString()}: </span><span class="chat__container__mensajes__mensaje">${mensajeEnvio.text}</span></div>`;
+    document.createElement
+    mensajesContainer.innerHTML += `<div class="chat__container__mensajes__msg"><span class="chat__container__mensajes__nombre">${mensajeEnvio.author.id}</span><span class="chat__container__mensajes__fecha"> ${new Date(mensajeEnvio.createdAt).toLocaleString()}: </span></div>`;
+
+    const mensaje = document.createElement("span");
+    mensaje.classList.add("chat__container__mensajes__mensaje");
+    mensaje.textContent = mensajeEnvio.text;
+
+    const msg = document.querySelector(".chat__container__mensajes__msg")
+    msg.appendChild(mensaje);
 
     mensajesContainer.scroll({ top: mensajesContainer.scrollHeight, behavior: "smooth" })
 }
