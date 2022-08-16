@@ -13,9 +13,18 @@ async function renderItems(items, logStatus) {
 
         formLogin.addEventListener("submit", (e) => {
             e.preventDefault();
-            const nombre = document.querySelector(".login__input").value;
+            const nombre = document.querySelector(".login__inputEmail").value;
+            const password = document.querySelector(".login__inputPassword").value
+            const obj = {
+                email: nombre,
+                password: password,
+            }
 
-            fetch(`/login?username=${nombre}`).then(res => {
+            fetch("/login", {method: "POST", body: obj}).then((data)=>data.json()).then(data=>{
+                console.log(data)
+            })
+
+          /*   fetch(`/login?username=${nombre}`).then(res => {
                 return res.json()
             }).then(res => {
                 if (res.status === "ok") {
@@ -23,14 +32,42 @@ async function renderItems(items, logStatus) {
                 } else {
                     console.log("error logging in")
                 }
+            }) */
+        })
 
+        /* register */
+        const registerModal = document.querySelector(".register__modal")
+        const registerModalClose = document.querySelector(".register__modal__close")
+        const registerButton = document.querySelector(".registerBtn")
+        const registerForm = document.querySelector(".register__form")
+
+        const userReg = document.querySelector("#userReg")
+        const emailReg = document.querySelector("#emailReg")
+        const passwordReg = document.querySelector("#passwordReg")
+
+        registerButton.addEventListener("click", () => {
+            registerModal.showModal();
+
+            registerModalClose.addEventListener("click", ()=>registerModal.close())
+        })
+
+        registerForm.addEventListener("submit", ()=>{
+            const obj = {
+                username: userReg.value,
+                email: emailReg.value,
+                password: passwordReg.value,
+            }
+
+            fetch("/register", {method: "POST", body: obj}).then((data)=>data.json()).then(data=>{
+                console.log(data)
             })
         })
+
 
         return;
     }
 
-    /* login */
+    /* login salute */
     const salute = document.querySelector(".header__salute");
     salute.style.visibility = "visible";
     salute.innerHTML = `Bievenido, ${logStatus.user}!`
@@ -60,6 +97,7 @@ async function renderItems(items, logStatus) {
             }
         })
     })
+
 
     /* productos */
     const form = document.querySelector(".formulario__form");
@@ -118,7 +156,7 @@ async function renderItems(items, logStatus) {
 
         const mensajeEnvio = {
             author: {
-                id: chatNombre.value,
+                email: chatNombre.value,
                 nombre: /* nombre || */ "nombreDefault",
                 apellido: /* apellido || */ "apellidoDefault",
                 edad: /* edad || */ 99,
@@ -176,7 +214,7 @@ function renderMensaje(mensajeEnvio) {
     const mensajeContainer = document.createElement("div");
 
     const nombre = document.createElement("span");
-    nombre.textContent = mensajeEnvio.author.id;
+    nombre.textContent = mensajeEnvio.author.email;
     nombre.classList.add("chat__container__mensajes__nombre")
 
     const fecha = document.createElement("span");

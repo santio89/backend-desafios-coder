@@ -1,5 +1,6 @@
 const express = require("express")
 const routesApi = require("./routes/indexApiRoutes").router;
+const routes = require("./routes/index").router;
 const routesProdTest = require("./routes/productosTest").router;
 const path = require("path")
 const ChatContainer = require("./Chat")
@@ -9,12 +10,16 @@ const normalizeMensajes = require("../util/normalize")
 const session = require("express-session")
 const cookieParser = require("cookie-parser")
 const MongoStore = require("connect-mongo")
+const passport = require("passport")
+const initializePassportConfig = require("./passportConfig")
+
+initializePassportConfig(passport)
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const chat = new ChatContainer("chats", {
     author: {
-        id: { type: String, required: true },
+        email: { type: String, required: true },
         nombre: { type: String, required: true },
         apellido: { type: String, required: true },
         edad: { type: Number, required: true },
@@ -32,7 +37,6 @@ const port = 8080;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
 app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
@@ -49,55 +53,29 @@ app.use(session({
     rolling: true
 }))
 
+app.use(passport.initialize())
+app.use(passport.session())
+
 /* serve static files */
 app.use(express.static(path.join(__dirname, "../public")))
 
+/* funcion auth para middleware */
 function auth(req, res, next) {
-    if (req.session.admin === true) {
+/*     if (req.session.admin === true) {
         next();
     } else {
+        res.status(401).json({ status: 401, code: "no credentials" })
+    } */
+
+    if (req.isAuthenticated()){
+        next()
+    } else{
         res.status(401).json({ status: 401, code: "no credentials" })
     }
 }
 
-app.get("/logged", (req, res) => {
-    if (req.session.admin === true) {
-        res.json({ status: "ok", user: req.session.user })
-    } else {
-        res.status(401).json({ status: 401, code: "no credentials" })
-    }
-})
-
-app.get("/session-test", (req, res) => {
-    if (req.session.contador) {
-        req.session.contador++;
-        return res.send("visitas: " + req.session.contador)
-    } else {
-        req.session.contador = 1;
-        res.send("esta es tu primera visita")
-    }
-})
-
-app.get("/login", (req, res) => {
-    const { username } = req.query;
-    req.session.user = username;
-    req.session.admin = true;
-
-    res.json({ status: 'ok', user: req.session.user })
-})
-
-app.get("/logout", (req, res) => {
-    const user = req.session.user;
-    req.session.destroy(err => {
-        if (err) {
-            res.status(500).json({ status: "error", body: err })
-        } else {
-            res.json({ status: "ok", user })
-        }
-    })
-})
-
 /* routes main */
+app.use("/", routes)
 app.use("/api/productos", auth, routesApi)
 app.use("/api/productos-test", auth, routesProdTest)
 

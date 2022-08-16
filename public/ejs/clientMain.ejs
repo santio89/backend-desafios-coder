@@ -84,7 +84,7 @@
                         <% mensajes.forEach(mensaje=>{%>
                             <div>
                                 <span class="chat__container__mensajes__nombre">
-                                    <%=mensaje.author.id%>
+                                    <%=mensaje.author.email%>
                                 </span><span class="chat__container__mensajes__fecha">
                                     <%=new Date(mensaje.createdAt).toLocaleString()%>:
                                 </span><span class="chat__container__mensajes__mensaje">
@@ -119,9 +119,20 @@
         <section class="login">
             <h2>LOG-IN</h2>
             <form class="login__form" id="login__form">
-                <input type="text" class="login__input" required placeholder="USER">
-                <button class="login">ENVIAR</button>
+                <input type="text" class="login__input login__inputEmail" required placeholder="EMAIL">
+                <input type="password" class="login__input login__inputPassword" required placeholder="PASSWORD">
+                <button class="login__send">INGRESAR</button>
             </form>
+            <button class="registerBtn">Registrarse</button>
+            <dialog class='register__modal'>
+                <form class="register__form">
+                    <input type="text" class="register__input" id="userReg" required placeholder="USER" name="user">
+                    <input type="email" class="register__input" id="emailReg" required placeholder="EMAIL" name="email">
+                    <input type="password" class="register__input" id="passwordReg" required placeholder="PASSWORD" name="password">
+                    <button class="register__send">REGISTRARSE</button>
+                </form>
+                <button class="register__modal__close">X</button>
+            </dialog>
         </section>
         <% } %>
 
