@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const mongoConnection = require("./db/database").mongoConnection
 
-mongoose.connect(mongoConnection).then(()=>console.log("Conexión establecida con Mongo")).catch(error=>console.log("error: ", error));
+mongoose.connect(mongoConnection).then(()=>console.log("CHATS - Conexión establecida con Mongo")).catch(error=>console.log("error: ", error));
 
 
 class Chat{

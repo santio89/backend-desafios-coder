@@ -11,6 +11,10 @@
         </nav>
         <div class="header__salute"></div>
     </header>
+    <button class="datos__modal__open"></button>
+    <dialog class='datos__modal'>
+        <button class="datos__modal__close">X</button>
+    </dialog>
     <section class="formulario" id="formulario">
         <h2>CARGAR PRODUCTO</h2>
         <form class="formulario__form">
@@ -119,9 +123,10 @@
         <section class="login">
             <h2>LOG-IN</h2>
             <form class="login__form" id="login__form">
-                <input type="text" class="login__input login__inputEmail" required placeholder="EMAIL">
+                <input type="email" class="login__input login__inputEmail" required placeholder="EMAIL">
                 <input type="password" class="login__input login__inputPassword" required placeholder="PASSWORD">
                 <button class="login__send">INGRESAR</button>
+                <div class="login__error"></div>
             </form>
             <button class="registerBtn">Registrarse</button>
             <dialog class='register__modal'>
@@ -130,7 +135,9 @@
                     <input type="email" class="register__input" id="emailReg" required placeholder="EMAIL" name="email">
                     <input type="password" class="register__input" id="passwordReg" required placeholder="PASSWORD" name="password">
                     <button class="register__send">REGISTRARSE</button>
+                    <div class="register__error"></div>
                 </form>
+                <div class="register__success"></div>
                 <button class="register__modal__close">X</button>
             </dialog>
         </section>

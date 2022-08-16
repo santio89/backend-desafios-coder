@@ -20,19 +20,44 @@ async function renderItems(items, logStatus) {
                 password: password,
             }
 
-            fetch("/login", {method: "POST", body: obj}).then((data)=>data.json()).then(data=>{
-                console.log(data)
-            })
+            let errorTimeout = 0;
 
-          /*   fetch(`/login?username=${nombre}`).then(res => {
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify(obj)
+            }).then(res => {
                 return res.json()
             }).then(res => {
                 if (res.status === "ok") {
                     window.location.reload();
                 } else {
-                    console.log("error logging in")
+                    if(res.error){
+                        clearTimeout(errorTimeout);
+                        const errorDiv = document.querySelector(".login__error");
+                        errorDiv.textContent = `Error: ${res.message}`
+                        errorDiv.classList.add("is-active");
+    
+                        errorTimeout = setTimeout(()=>{
+                            errorDiv.classList.remove("is-active");
+                            errorDiv.textContent = "";
+                        }, 2000)
+                    }
                 }
-            }) */
+            }) 
+
+            /*   fetch(`/login?username=${nombre}`).then(res => {
+                  return res.json()
+              }).then(res => {
+                  if (res.status === "ok") {
+                      window.location.reload();
+                  } else {
+                      console.log("error logging in")
+                  }
+              }) */
         })
 
         /* register */
@@ -48,29 +73,65 @@ async function renderItems(items, logStatus) {
         registerButton.addEventListener("click", () => {
             registerModal.showModal();
 
-            registerModalClose.addEventListener("click", ()=>registerModal.close())
+            const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("click", modalCloseClick); registerModal.close() } };
+            window.addEventListener("click", modalCloseClick);
+
+            registerModalClose.addEventListener("click", () => registerModal.close())
         })
 
-        registerForm.addEventListener("submit", ()=>{
+        registerForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
             const obj = {
                 username: userReg.value,
                 email: emailReg.value,
                 password: passwordReg.value,
             }
+            
+            let errorTimeout = 0;
+            let successTimeout = 0;
 
-            fetch("/register", {method: "POST", body: obj}).then((data)=>data.json()).then(data=>{
-                console.log(data)
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify(obj)
+            }).then((data) => data.json()).then(data => {
+                if(data.error){
+                    clearTimeout(errorTimeout);
+                    const errorDiv = document.querySelector(".register__error");
+                    errorDiv.textContent = `Error: ${data.message}`
+                    errorDiv.classList.add("is-active");
+
+                    errorTimeout = setTimeout(()=>{
+                        errorDiv.classList.remove("is-active");
+                        errorDiv.textContent = "";
+                    }, 2000)
+
+                } else{
+                    clearTimeout(successTimeout)
+                    const successDiv = document.querySelector(".register__success")
+                    registerForm.style.display = "none";
+                    successDiv.classList.add("is-active");
+                    successDiv.textContent = `Registrado Correctamente.\nUser: ${obj.username}\nE-Mail: ${obj.email}\n`
+
+                    successTimeout = setTimeout(()=>{
+                        registerForm.style.display = "block";
+                        successDiv.classList.remove("is-active");
+                        registerModal.close();
+                    }, 4000)
+                }
             })
         })
-
-
         return;
     }
 
     /* login salute */
     const salute = document.querySelector(".header__salute");
     salute.style.visibility = "visible";
-    salute.innerHTML = `Bievenido, ${logStatus.user}!`
+    salute.innerHTML = `Bievenido, ${logStatus.user.email}!`
 
     const loginSaluteTimeout = setTimeout(() => {
         salute.innerHTML = ``;
@@ -87,7 +148,7 @@ async function renderItems(items, logStatus) {
             if (res.status === "ok") {
                 clearTimeout(loginSaluteTimeout);
                 salute.style.visibility = "visible";
-                salute.innerHTML = `Hasta luego, ${res.user}!`
+                salute.innerHTML = `Hasta luego, ${res.user.email}!`
 
                 setTimeout(() => {
                     window.location.reload();
@@ -97,6 +158,11 @@ async function renderItems(items, logStatus) {
             }
         })
     })
+
+    /* datos user */
+    const datosOpen = document.querySelector(".datos__modal__open")
+    const datosClose = document.querySelector(".datos__modal__close")
+    const datosModal = document.querySelector(".datos__modal")
 
 
     /* productos */
@@ -305,7 +371,7 @@ socket.on("server:items-test", async items => {
     try {
         const logged = await fetch("/logged")
         const logStatus = await logged.json()
-
+        
         await renderItems(items, logStatus);
 
         if (logStatus.status === 401) {
@@ -318,7 +384,7 @@ socket.on("server:items-test", async items => {
     displayTable()
     const mockData = await fetch("/api/productos-test")
     const mockProducts = await mockData.json()
-
+    
     mockProducts.forEach(product => {
         renderProducto(product)
     })

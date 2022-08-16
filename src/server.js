@@ -61,17 +61,17 @@ app.use(express.static(path.join(__dirname, "../public")))
 
 /* funcion auth para middleware */
 function auth(req, res, next) {
-/*     if (req.session.admin === true) {
+    if (req.session.user) {
         next();
     } else {
         res.status(401).json({ status: 401, code: "no credentials" })
-    } */
+    }
 
-    if (req.isAuthenticated()){
+ /*    if (req.isAuthenticated()){
         next()
     } else{
         res.status(401).json({ status: 401, code: "no credentials" })
-    }
+    } */
 }
 
 /* routes main */

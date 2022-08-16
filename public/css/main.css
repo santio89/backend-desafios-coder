@@ -567,6 +567,13 @@ footer p {
 .login__form button:active {
   transform: translate(4px, 4px);
 }
+.login__error {
+  opacity: 0;
+  transition: 200ms;
+}
+.login__error.is-active {
+  opacity: 1;
+}
 
 .register__modal {
   width: 80%;
@@ -584,6 +591,27 @@ footer p {
 }
 .register__modal::backdrop {
   background-color: rgba(30, 30, 30, 0.4);
+}
+.register__success {
+  display: none;
+}
+.register__success.is-active {
+  display: block;
+}
+.register__error {
+  opacity: 0;
+  transition: 200ms;
+}
+.register__error.is-active {
+  opacity: 1;
+}
+.register__form {
+  width: 100%;
+  height: 90%;
+}
+
+.datos {
+  display: none;
 }
 
 @media (max-width: 720px) {

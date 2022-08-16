@@ -11,10 +11,11 @@ const users = new UserContainer("users", {
     password: { type: String, required: true }
 });
 
+router.use(express.urlencoded({ extended: true }))
 
 /* ruteo */
 router.get("/logged", (req, res) => {
-    if (req.session.admin === true) {
+    if (req.session.user) {
         res.json({ status: "ok", user: req.session.user })
     } else {
         res.status(401).json({ status: 401, code: "no credentials" })
@@ -26,22 +27,32 @@ router.get("/logged", (req, res) => {
     } */
 })
 
-router.get("/session-test", (req, res) => {
-    if (req.session.contador) {
-        req.session.contador++;
-        return res.send("visitas: " + req.session.contador)
-    } else {
-        req.session.contador = 1;
-        res.send("esta es tu primera visita")
+router.get("/datos", (req, res) => {
+    if (req.session.user){
+        if (req.session.contador) {
+            req.session.contador++;
+            return res.json({
+                visitas: req.session.contador,
+                user: req.session.user
+            })
+        } else {
+            req.session.contador = 1;
+            res.json({visitas: req.session.contador, user: req.session.user})
+        }
     }
 })
 
-router.get("/login", (req, res) => {
-    const { username } = req.query;
-    req.session.user = username;
-    req.session.admin = true;
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
 
-    res.json({ status: 'ok', user: req.session.user })
+    const user = await users.getByEmail(email)
+    
+    if (user.error || user.password != password){
+        return res.json({ error: true, message: "Invalid credentials" });
+    }
+
+    req.session.user = user;
+    res.json({ status: 'ok', user: user })
 })
 
 router.get("/logout", (req, res) => {
@@ -59,14 +70,15 @@ router.post("/register", async (req, res)=>{
     const {username, email} = req.body;
     const existingemail = await users.getByEmail(email)
     const existinguser = await users.getByUsername(username)
+ 
 
-    if (existingemail.error){
-        return res.json({error: true, message: "email already registered"})
-    } else if (existinguser.error){
-        return res.json({error: true, message: "user already registered"})
+    if (!existingemail.error){
+        return res.json({error: true, message: "email already exists"})
+    } else if (!existinguser.error){
+        return res.json({error: true, message: "user already exists"})
     }
     
-    await users.save( req,body)
+    await users.save(req.body)
     res.json({status: "ok", message: "user registered successfully"})
 })
 
