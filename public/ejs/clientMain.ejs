@@ -77,8 +77,8 @@
             <fieldset>
                 <legend>USER</legend>
                 <input class="chat__container__nombre" type="email" name="nombre" id="chatNombre"
-                    placeholder="Ingresar e-mail..." required autocomplete="off" maxlength="320"
-                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Ingresar e-mail">
+                    placeholder="Ingresar e-mail..." required maxlength="320" pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                    title="Ingresar e-mail" value=<%=user.email%> >
                 <label class="chat__container__nombre--label" for="chatNombre">Nombre:</label>
             </fieldset>
             <div class="chat__optimization">Porcentaje de optimización: </div>
@@ -89,9 +89,11 @@
                             <div>
                                 <span class="chat__container__mensajes__nombre">
                                     <%=mensaje.author.email%>
-                                </span><span class="chat__container__mensajes__fecha">
+                                </span>
+                                <span class="chat__container__mensajes__fecha">
                                     <%=new Date(mensaje.createdAt).toLocaleString()%>:
-                                </span><span class="chat__container__mensajes__mensaje">
+                                </span>
+                                <span class="chat__container__mensajes__mensaje">
                                     <%=mensaje.text%>
                                 </span>
                             </div>
@@ -123,7 +125,7 @@
         <section class="login">
             <h2>LOG-IN</h2>
             <form class="login__form" id="login__form">
-                <input type="email" class="login__input login__inputEmail" required placeholder="EMAIL">
+                <input type="email" class="login__input login__inputEmail" required placeholder="EMAIL" maxlength="320" pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
                 <input type="password" class="login__input login__inputPassword" required placeholder="PASSWORD">
                 <button class="login__send" type="submit">INGRESAR</button>
                 <div class="login__error">&nbsp;</div>
@@ -132,8 +134,9 @@
             <dialog class='register__modal'>
                 <form class="register__modal__form">
                     <input type="text" class="register__input" id="userReg" required placeholder="USER" name="user">
-                    <input type="email" class="register__input" id="emailReg" required placeholder="EMAIL" name="email">
-                    <input type="password" class="register__input" id="passwordReg" required placeholder="PASSWORD" name="password">
+                    <input type="email" class="register__input" id="emailReg" required placeholder="EMAIL" name="email" maxlength="320" pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+                    <input type="password" class="register__input" id="passwordReg" required placeholder="PASSWORD"
+                        name="password">
                     <button class="register__modal__form__send" type="submit">REGISTRARSE</button>
                     <div class="register__error">&nbsp;</div>
                 </form>

@@ -543,7 +543,7 @@ footer p {
   flex-flow: column wrap;
   gap: clamp(1rem, 1rem + 1vw, 2rem);
   font-size: clamp(1.4rem, 1.4em + 2vw, 2rem);
-  padding: 0.2em 0.4em;
+  padding: 0.1em 0.4em;
 }
 .login__form input {
   background: none;
@@ -595,7 +595,7 @@ footer p {
   background-color: rgb(30, 30, 30);
   border-radius: 0.4em;
   border: 2px dashed rgb(30, 30, 30);
-  position: relative;
+  position: fixed;
 }
 .register__modal::-webkit-backdrop {
   background-color: rgba(30, 30, 30, 0.4);
@@ -649,9 +649,16 @@ footer p {
 }
 .register__success {
   display: none;
+  min-width: 60vw;
+  min-height: 80vh;
+  padding-top: 10%;
+  font-size: clamp(1.4rem, 1.4em + 2.4vw, 2.4rem);
 }
 .register__success.is-active {
-  display: block;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: start;
+  align-items: center;
 }
 .register__error {
   visibility: hidden;

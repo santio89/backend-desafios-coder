@@ -112,7 +112,7 @@ async function renderItems(items, logStatus) {
                         registerForm.style.display = "block";
                         successDiv.classList.remove("is-active");
                         registerModal.close();
-                    }, 4000)
+                    }, 40000)
                 }
             })
         })
@@ -272,7 +272,7 @@ function renderMensaje(mensajeEnvio) {
     const mensajeContainer = document.createElement("div");
 
     const nombre = document.createElement("span");
-    nombre.textContent = mensajeEnvio.author.email;
+    nombre.textContent = mensajeEnvio.author.email + " ";
     nombre.classList.add("chat__container__mensajes__nombre")
 
     const fecha = document.createElement("span");

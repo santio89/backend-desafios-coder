@@ -600,7 +600,7 @@ footer {
         flex-flow: column wrap;
         gap: clamp(1rem, 1rem + 1vw, 2rem);
         font-size: clamp(1.4rem, 1.4em + 2vw, 2rem);
-        padding: .2em .4em;
+        padding: .1em .4em;
 
         input {
             background: none;
@@ -663,7 +663,7 @@ footer {
         background-color: rgb(30, 30, 30);
         border-radius: .4em;
         border: 2px dashed rgb(30, 30, 30);
-        position: relative;
+        position: fixed;
 
         &::backdrop {
             background-color: rgba(30, 30, 30, .4);
@@ -697,7 +697,8 @@ footer {
                 transition: 200ms;
                 margin-top: 2em;
 
-                &:hover, &:focus-visible {
+                &:hover,
+                &:focus-visible {
                     text-shadow: 1px 1px 0 white;
                     color: coral;
                 }
@@ -723,9 +724,16 @@ footer {
 
     &__success {
         display: none;
+        min-width: 60vw;
+        min-height: 80vh;
+        padding-top: 10%;
+        font-size: clamp(1.4rem, 1.4em + 2.4vw, 2.4rem);
 
         &.is-active {
-            display: block;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: start;
+            align-items: center;
         }
     }
 
