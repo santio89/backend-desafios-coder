@@ -593,90 +593,156 @@ footer {
     flex-flow: column wrap;
 
     &__form {
-        width: min(100%, 800px);
+        width: min(100%, 600px);
         display: flex;
         justify-content: start;
         align-items: center;
         flex-flow: column wrap;
-        gap: 2rem;
-        font-size: 2rem;
+        gap: clamp(1rem, 1rem + 1vw, 2rem);
+        font-size: clamp(1.4rem, 1.4em + 2vw, 2rem);
+        padding: .2em .4em;
 
         input {
             background: none;
             outline: none;
             border: none;
-            text-align: center;
+            text-align: left;
             border-bottom: 2px dashed coral;
             font-weight: bold;
-            color: coral;
+            color: white;
             text-shadow: 2px 2px 0 rgb(30, 30, 30);
-        }
-
-        button {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: rgb(30, 30, 30);
-            text-shadow: 1px 1px 0 coral;
-            transition: 200ms;
-
-            &:hover {
-                transform: translate(2px, 2px)
-            }
-
-            &:active {
-                transform: translate(4px, 4px)
-            }
+            max-width: 100%;
         }
     }
 
-    &__error{
-        opacity: 0;
+
+
+    &__send {
+        font-size: 1.2em;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 coral;
+        color: white;
         transition: 200ms;
 
-        &.is-active{
-            opacity: 1;
+        &:hover {
+            transform: translate(2px, 2px)
+        }
+
+        &:active {
+            transform: translate(4px, 4px)
+        }
+    }
+
+    &__error {
+        visibility: hidden;
+        font-size: .6em;
+        color: white;
+        text-align: right;
+        margin-top: -1em;
+
+        &.is-active {
+            visibility: visible;
         }
     }
 }
 
 .register {
+    &__btn {
+        color: coral;
+        text-shadow: 1px 1px 0 rgb(30, 30, 30);
+        font-weight: bold;
+        align-self: end;
+        margin-top: -1em;
+        font-size: clamp(1rem, 1em + 2vw, 1.4rem);
+    }
+
     &__modal {
-        width: 80%;
-        height: 80%;
-        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: rgb(30, 30, 30);
         border-radius: .4em;
         border: 2px dashed rgb(30, 30, 30);
+        position: relative;
 
         &::backdrop {
             background-color: rgba(30, 30, 30, .4);
         }
+
+        &__form {
+            min-width: 60vw;
+            min-height: 80vh;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: start;
+            align-items: center;
+            padding-top: 10%;
+            font-size: clamp(1.4rem, 1.4em + 2.4vw, 2.4rem);
+
+            input {
+                outline: none;
+                background: none;
+                border: none;
+                border-bottom: 2px dashed coral;
+                color: white;
+                padding: .1em .2em;
+                max-width: 100%;
+            }
+
+            &__send {
+                font-size: 1.2em;
+                font-weight: bold;
+                text-shadow: 1px 1px 0 coral;
+                color: white;
+                transition: 200ms;
+                margin-top: 2em;
+
+                &:hover, &:focus-visible {
+                    text-shadow: 1px 1px 0 white;
+                    color: coral;
+                }
+            }
+        }
+
+        &__close {
+            position: absolute;
+            top: 0;
+            right: .2em;
+            font-size: clamp(2rem, 2rem + 1vw, 3.4rem);
+            line-height: 1;
+            color: white;
+            text-shadow: 1px 1px 0 coral;
+
+            &:hover,
+            &:focus-visible {
+                color: coral;
+                text-shadow: 1px 1px 0 white;
+            }
+        }
     }
-    &__success{
+
+    &__success {
         display: none;
 
-        &.is-active{
+        &.is-active {
             display: block;
         }
     }
-    &__error{
-        opacity: 0;
-        transition: 200ms;
 
-        &.is-active{
-            opacity: 1;
+    &__error {
+        visibility: hidden;
+        transition: 200ms;
+        font-size: .6em;
+        color: white;
+        text-align: right;
+
+        &.is-active {
+            visibility: visible;
         }
-    }
-    &__form{
-        width: 100%;
-        height: 90%;
     }
 }
 
-.datos{
+.datos {
     display: none;
 }
 

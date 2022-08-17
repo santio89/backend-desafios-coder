@@ -27,7 +27,7 @@ async function renderItems(items, logStatus) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                  },
+                },
                 body: JSON.stringify(obj)
             }).then(res => {
                 return res.json()
@@ -35,36 +35,26 @@ async function renderItems(items, logStatus) {
                 if (res.status === "ok") {
                     window.location.reload();
                 } else {
-                    if(res.error){
+                    if (res.error) {
                         clearTimeout(errorTimeout);
                         const errorDiv = document.querySelector(".login__error");
                         errorDiv.textContent = `Error: ${res.message}`
                         errorDiv.classList.add("is-active");
-    
-                        errorTimeout = setTimeout(()=>{
+
+                        errorTimeout = setTimeout(() => {
                             errorDiv.classList.remove("is-active");
-                            errorDiv.textContent = "";
+                            errorDiv.innerHTML = "&nbsp;";
                         }, 2000)
                     }
                 }
-            }) 
-
-            /*   fetch(`/login?username=${nombre}`).then(res => {
-                  return res.json()
-              }).then(res => {
-                  if (res.status === "ok") {
-                      window.location.reload();
-                  } else {
-                      console.log("error logging in")
-                  }
-              }) */
+            })
         })
 
         /* register */
         const registerModal = document.querySelector(".register__modal")
         const registerModalClose = document.querySelector(".register__modal__close")
-        const registerButton = document.querySelector(".registerBtn")
-        const registerForm = document.querySelector(".register__form")
+        const registerButton = document.querySelector(".register__btn")
+        const registerForm = document.querySelector(".register__modal__form")
 
         const userReg = document.querySelector("#userReg")
         const emailReg = document.querySelector("#emailReg")
@@ -76,8 +66,9 @@ async function renderItems(items, logStatus) {
             const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("click", modalCloseClick); registerModal.close() } };
             window.addEventListener("click", modalCloseClick);
 
-            registerModalClose.addEventListener("click", () => registerModal.close())
+            registerModalClose.addEventListener("click", () => {window.removeEventListener("click", modalCloseClick); registerModal.close()})
         })
+
 
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -87,7 +78,7 @@ async function renderItems(items, logStatus) {
                 email: emailReg.value,
                 password: passwordReg.value,
             }
-            
+
             let errorTimeout = 0;
             let successTimeout = 0;
 
@@ -96,28 +87,28 @@ async function renderItems(items, logStatus) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                  },
+                },
                 body: JSON.stringify(obj)
             }).then((data) => data.json()).then(data => {
-                if(data.error){
+                if (data.error) {
                     clearTimeout(errorTimeout);
                     const errorDiv = document.querySelector(".register__error");
                     errorDiv.textContent = `Error: ${data.message}`
                     errorDiv.classList.add("is-active");
 
-                    errorTimeout = setTimeout(()=>{
+                    errorTimeout = setTimeout(() => {
                         errorDiv.classList.remove("is-active");
-                        errorDiv.textContent = "";
+                        errorDiv.innerHTML = "&nbsp;";
                     }, 2000)
 
-                } else{
+                } else {
                     clearTimeout(successTimeout)
                     const successDiv = document.querySelector(".register__success")
                     registerForm.style.display = "none";
                     successDiv.classList.add("is-active");
                     successDiv.textContent = `Registrado Correctamente.\nUser: ${obj.username}\nE-Mail: ${obj.email}\n`
 
-                    successTimeout = setTimeout(()=>{
+                    successTimeout = setTimeout(() => {
                         registerForm.style.display = "block";
                         successDiv.classList.remove("is-active");
                         registerModal.close();
@@ -125,6 +116,7 @@ async function renderItems(items, logStatus) {
                 }
             })
         })
+
         return;
     }
 
@@ -371,7 +363,7 @@ socket.on("server:items-test", async items => {
     try {
         const logged = await fetch("/logged")
         const logStatus = await logged.json()
-        
+
         await renderItems(items, logStatus);
 
         if (logStatus.status === 401) {
@@ -384,7 +376,7 @@ socket.on("server:items-test", async items => {
     displayTable()
     const mockData = await fetch("/api/productos-test")
     const mockProducts = await mockData.json()
-    
+
     mockProducts.forEach(product => {
         renderProducto(product)
     })
