@@ -9,6 +9,8 @@ const { Server: IOServer } = require("socket.io");
 const normalizeMensajes = require("../util/normalize")
 const session = require("express-session")
 const cookieParser = require("cookie-parser")
+const mongoose = require("mongoose");
+const mongoConnection = require("./db/database").mongoConnection
 const MongoStore = require("connect-mongo")
 const passport = require("passport")
 const initializePassportConfig = require("./passportConfig")
@@ -90,6 +92,10 @@ app.use(function (err, req, res, next) {
         error: err.message,
     });
 });
+
+
+
+mongoose.connect(mongoConnection).then(()=>console.log("Conexión establecida con Mongo")).catch(error=>console.log("error conectado a db: ", error));
 
 /* start server */
 const expressServer = app.listen(port, (err) => {

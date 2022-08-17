@@ -1,7 +1,4 @@
 const mongoose = require("mongoose")
-const mongoConnection = require("./db/database").mongoConnection
-
-mongoose.connect(mongoConnection).then(()=>console.log("USERS - Conexión establecida con Mongo")).catch(error=>console.log("error: ", error));
 
 
 class Users{
