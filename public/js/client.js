@@ -106,13 +106,18 @@ async function renderItems(items, logStatus) {
                     const successDiv = document.querySelector(".register__success")
                     registerForm.style.display = "none";
                     successDiv.classList.add("is-active");
-                    successDiv.textContent = `Registrado Correctamente.\nUser: ${obj.username}\nE-Mail: ${obj.email}\n`
+                    
+                    successDiv.innerHTML = `
+                    <p>Registrado Correctamente</p>
+                    <p>User: ${obj.username}</p>
+                    <p>E-Mail: ${obj.email}</p>
+                    `
 
                     successTimeout = setTimeout(() => {
                         registerForm.style.display = "block";
                         successDiv.classList.remove("is-active");
                         registerModal.close();
-                    }, 40000)
+                    }, 4000)
                 }
             })
         })
