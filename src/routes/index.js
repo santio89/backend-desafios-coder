@@ -1,86 +1,65 @@
-const bcrypt = require("bcrypt")
 const passport = require("passport")
 const express = require("express");
-const UserContainer = require("../Users")
 const router = express.Router();
+const initializePassportConfig = require("../passportConfig")
+const users = require("../models/usersContainerModel");
 
-
-const users = new UserContainer("users", {
-    email: { type: String, required: true},
-    username: { type: String, required: true },
-    password: { type: String, required: true }
-});
+initializePassportConfig(passport)
 
 router.use(express.urlencoded({ extended: true }))
 
-/* ruteo */
-router.get("/logged", (req, res) => {
-    if (req.session.user) {
-        res.json({ status: "ok", user: req.session.user })
+const checkAuthentication = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        next()
     } else {
         res.status(401).json({ status: 401, code: "no credentials" })
     }
-/*     if (req.isAuthenticated()){
-        res.json({ status: "ok", user: req.session.user })
-    } else{
-        res.status(401).json({ status: 401, code: "no credentials" })
-    } */
+}
+
+/* ruteo */
+router.get("/logged", checkAuthentication, (req, res) => {
+    res.json({ status: "ok", user: req.user })
 })
 
-router.get("/datos", (req, res) => {
-    if (req.session.user){
-        if (req.session.contador) {
-            req.session.contador++;
-            return res.json({
-                visitas: req.session.contador,
-                user: req.session.user
-            })
-        } else {
-            req.session.contador = 1;
-            res.json({visitas: req.session.contador, user: req.session.user})
-        }
+router.get("/datos", checkAuthentication, (req, res) => {
+    if (req.session.contador) {
+        req.session.contador++;
+        res.json({
+            visitas: req.session.contador,
+            user: req.user
+        })
+    } else {
+        req.session.contador = 1;
+        res.json({ visitas: req.session.contador, user: req.user })
     }
+
 })
 
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
-    const user = await users.getByEmail(email)
-    
-    if (user.error || user.password != password){
-        return res.json({ error: true, message: "Invalid credentials" });
+router.post("/login", passport.authenticate('login'), (req, res) => {
+    if (req.user) {
+        res.json({ status: 'ok', user: req.user })
+    } else {
+        res.json({ error: true, message: "Invalid credentials" });
     }
-
-    req.session.user = user;
-    res.json({ status: 'ok', user: user })
 })
 
 router.get("/logout", (req, res) => {
-    const user = req.session.user;
-    req.session.destroy(err => {
-        if (err) {
-            res.status(500).json({ status: "error", body: err })
-        } else {
-            res.json({ status: "ok", user })
+    const user = req.user;
+    req.logout((err)=>{
+        if (err){
+            res.json({status: "error", error: err})
         }
-    })
+    });
+    res.json({ status: "ok", user })
 })
 
-router.post("/register", async (req, res)=>{
-    const {username, email} = req.body;
-    const existingemail = await users.getByEmail(email)
-    const existinguser = await users.getByUsername(username)
- 
-
-    if (!existingemail.error){
-        return res.json({error: true, message: "email already exists"})
-    } else if (!existinguser.error){
-        return res.json({error: true, message: "user already exists"})
+router.post("/register", passport.authenticate('register'), (req, res) => {
+    if (req.user){
+        res.json({ status: "ok", message: "user registered successfully" })
+    } else{
+        res.json({error: true, message: "user or email already exists"})
     }
-    
-    await users.save(req.body)
-    res.json({status: "ok", message: "user registered successfully"})
 })
 
 
-module.exports = {router};
+module.exports = { router, users };

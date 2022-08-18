@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 
-
 class Chat{
     constructor(collectionName, schema){
         this.collection = mongoose.model(collectionName, new mongoose.Schema(schema, {timestamps: true}));

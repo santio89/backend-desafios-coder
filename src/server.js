@@ -3,7 +3,6 @@ const routesApi = require("./routes/indexApiRoutes").router;
 const routes = require("./routes/index").router;
 const routesProdTest = require("./routes/productosTest").router;
 const path = require("path")
-const ChatContainer = require("./Chat")
 const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
 const normalizeMensajes = require("../util/normalize")
@@ -13,25 +12,9 @@ const mongoose = require("mongoose");
 const mongoConnection = require("./db/database").mongoConnection
 const MongoStore = require("connect-mongo")
 const passport = require("passport")
-const initializePassportConfig = require("./passportConfig")
-
-initializePassportConfig(passport)
+const chat = require("./models/chatContainerModel")
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-
-const chat = new ChatContainer("chats", {
-    author: {
-        email: { type: String, required: true },
-        nombre: { type: String, required: true },
-        apellido: { type: String, required: true },
-        edad: { type: Number, required: true },
-        alias: { type: String, required: true },
-        avatar: { type: String, required: true }
-    },
-    text: { type: String, required: true }
-});
-
-
 const app = express();
 const port = 8080;
 
@@ -39,6 +22,7 @@ const port = 8080;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+/* cookies / session */
 app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
@@ -55,6 +39,7 @@ app.use(session({
     rolling: true
 }))
 
+/* passport init */
 app.use(passport.initialize())
 app.use(passport.session())
 

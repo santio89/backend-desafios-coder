@@ -35,6 +35,21 @@ class Users{
         }
     }
 
+    async getById(id) {
+        try {
+            const object = await this.collection.findById(id)
+            
+            if (object) {
+                return object
+            } else {
+                return { error: `ID ${id} no encontrado` }
+            }
+        } catch (err) {
+            console.log("Error buscando id. Code: ", err)
+            return {error: "error buscando id"}
+        }
+    }
+
     async getByUsername(username) {
         try {
             const object = await this.collection.findOne({ username: username }, { __v: 0 });

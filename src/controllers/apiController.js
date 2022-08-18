@@ -1,7 +1,5 @@
 /* contenedor principal de productos */
-const Contenedor = require("../Contenedor");
-const productsDatabase = require("../db/database").mysqlConnection;
-const contenedorProductos = new Contenedor(productsDatabase, "products");
+const contenedorProductos = require("../models/productsContainerModel")
 
 const multer = require("multer");
 const storage = multer.diskStorage({

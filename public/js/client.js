@@ -66,7 +66,7 @@ async function renderItems(items, logStatus) {
             const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("click", modalCloseClick); registerModal.close() } };
             window.addEventListener("click", modalCloseClick);
 
-            registerModalClose.addEventListener("click", () => {window.removeEventListener("click", modalCloseClick); registerModal.close()})
+            registerModalClose.addEventListener("click", () => { window.removeEventListener("click", modalCloseClick); registerModal.close() })
         })
 
 
@@ -90,7 +90,28 @@ async function renderItems(items, logStatus) {
                 },
                 body: JSON.stringify(obj)
             }).then((data) => data.json()).then(data => {
-                if (data.error) {
+                if (data.status === "ok") {
+                    
+                    clearTimeout(successTimeout)
+                    const successDiv = document.querySelector(".register__success")
+                    registerForm.style.display = "none";
+                    successDiv.classList.add("is-active");
+
+                    successDiv.innerHTML = `
+                    <p>Registrado Correctamente</p>
+                    <p>User: ${obj.username}</p>
+                    <p>E-Mail: ${obj.email}</p>
+                    `
+
+                    successTimeout = setTimeout(() => {
+                        registerForm.style.display = "flex";
+                        successDiv.classList.remove("is-active");
+                        registerModal.close();
+                        userReg.value = "";
+                        emailReg.value = "";
+                        passwordReg.value = "";
+                    }, 4000)
+                } else {
                     clearTimeout(errorTimeout);
                     const errorDiv = document.querySelector(".register__error");
                     errorDiv.textContent = `Error: ${data.message}`
@@ -100,24 +121,6 @@ async function renderItems(items, logStatus) {
                         errorDiv.classList.remove("is-active");
                         errorDiv.innerHTML = "&nbsp;";
                     }, 2000)
-
-                } else {
-                    clearTimeout(successTimeout)
-                    const successDiv = document.querySelector(".register__success")
-                    registerForm.style.display = "none";
-                    successDiv.classList.add("is-active");
-                    
-                    successDiv.innerHTML = `
-                    <p>Registrado Correctamente</p>
-                    <p>User: ${obj.username}</p>
-                    <p>E-Mail: ${obj.email}</p>
-                    `
-
-                    successTimeout = setTimeout(() => {
-                        registerForm.style.display = "block";
-                        successDiv.classList.remove("is-active");
-                        registerModal.close();
-                    }, 4000)
                 }
             })
         })
