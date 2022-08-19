@@ -13,7 +13,7 @@ function initialize(passport) {
             const existinguser = await users.getByUsername(username)
 
             if (!existingemail.error) {
-                return done(null, null, { error: true, message: "e-Mail ya existe" })
+                return done(null, null, { error: true, message: "e-mail ya existe" })
             } else if (!existinguser.error) {
                 return done(null, null, { error: true, message: "usuario ya existe" })
             }
