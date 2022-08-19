@@ -16,8 +16,9 @@ async function renderItems(items, logStatus) {
             const nombre = document.querySelector(".login__inputEmail").value;
             const password = document.querySelector(".login__inputPassword").value
             const obj = {
+                username: true,
                 email: nombre,
-                password: password,
+                password: password
             }
 
             let errorTimeout = 0;
@@ -28,12 +29,13 @@ async function renderItems(items, logStatus) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(obj)
+                body: JSON.stringify(obj),
+                credentials: 'include' 
             }).then(res => {
                 return res.json()
             }).then(res => {
                 if (res.status === "ok") {
-                    window.location.reload();
+                    window.location.href="/";
                 } else {
                     if (res.error) {
                         clearTimeout(errorTimeout);
@@ -63,8 +65,8 @@ async function renderItems(items, logStatus) {
         registerButton.addEventListener("click", () => {
             registerModal.showModal();
 
-            const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("click", modalCloseClick); registerModal.close() } };
-            window.addEventListener("click", modalCloseClick);
+            const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("mousedown", modalCloseClick); registerModal.close(); userReg.value = ""; emailReg.value = ""; passwordReg.value = ""}};
+            window.addEventListener("mousedown", modalCloseClick);
 
             registerModalClose.addEventListener("click", () => { window.removeEventListener("click", modalCloseClick); registerModal.close() })
         })
@@ -76,7 +78,7 @@ async function renderItems(items, logStatus) {
             const obj = {
                 username: userReg.value,
                 email: emailReg.value,
-                password: passwordReg.value,
+                password: passwordReg.value
             }
 
             let errorTimeout = 0;
@@ -91,7 +93,6 @@ async function renderItems(items, logStatus) {
                 body: JSON.stringify(obj)
             }).then((data) => data.json()).then(data => {
                 if (data.status === "ok") {
-                    
                     clearTimeout(successTimeout)
                     const successDiv = document.querySelector(".register__success")
                     registerForm.style.display = "none";
@@ -151,7 +152,7 @@ async function renderItems(items, logStatus) {
                 salute.innerHTML = `Hasta luego, ${res.user.email}!`
 
                 setTimeout(() => {
-                    window.location.reload();
+                    window.location.href="/";
                 }, 2000);
             } else {
                 console.log("error logging out")
@@ -176,7 +177,7 @@ async function renderItems(items, logStatus) {
             const logStatus = await logged.json()
 
             if (logStatus.status === 401) {
-                window.location.reload();
+                window.location.href="/";
                 return
             }
 
@@ -212,7 +213,7 @@ async function renderItems(items, logStatus) {
             const logStatus = await logged.json()
 
             if (logStatus.status === 401) {
-                window.location.reload();
+                window.location.href="/";
                 return
             }
 
@@ -366,7 +367,8 @@ socket.on("server:items-test", async items => {
     const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
     items.mensajes = mensajesDenormalizados
     items.optimization = porcentajeOptimizacion;
-
+    
+  
     /* fetch status a la session */
     try {
         const logged = await fetch("/logged")

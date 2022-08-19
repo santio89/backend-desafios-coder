@@ -22,6 +22,9 @@ const port = 8080;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+/* serve static files */
+app.use(express.static(path.join(__dirname, "../public")))
+
 /* cookies / session */
 app.use(cookieParser())
 app.use(session({
@@ -43,22 +46,14 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-/* serve static files */
-app.use(express.static(path.join(__dirname, "../public")))
 
 /* funcion auth para middleware */
 function auth(req, res, next) {
-    if (req.session.user) {
+    if (req.isAuthenticated() || req.session.user) {
         next();
     } else {
         res.status(401).json({ status: 401, code: "no credentials" })
     }
-
- /*    if (req.isAuthenticated()){
-        next()
-    } else{
-        res.status(401).json({ status: 401, code: "no credentials" })
-    } */
 }
 
 /* routes main */
@@ -121,4 +116,3 @@ io.on("connection", async socket => {
         io.emit("server:mensaje", savedMessage);
     })
 })
-

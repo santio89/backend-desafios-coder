@@ -1,4 +1,4 @@
-const passport = require("passport")
+const passport = require("passport");
 const express = require("express");
 const router = express.Router();
 const initializePassportConfig = require("../passportConfig")
@@ -9,7 +9,7 @@ initializePassportConfig(passport)
 router.use(express.urlencoded({ extended: true }))
 
 const checkAuthentication = (req, res, next) => {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() || req.session.user ) {
         next()
     } else {
         res.status(401).json({ status: 401, code: "no credentials" })
@@ -18,7 +18,7 @@ const checkAuthentication = (req, res, next) => {
 
 /* ruteo */
 router.get("/logged", checkAuthentication, (req, res) => {
-    res.json({ status: "ok", user: req.user })
+    res.json({ status: "ok", user: req.session.user })
 })
 
 router.get("/datos", checkAuthentication, (req, res) => {
@@ -35,31 +35,30 @@ router.get("/datos", checkAuthentication, (req, res) => {
 
 })
 
-router.post("/login", passport.authenticate('login'), (req, res) => {
-    if (req.user) {
-        res.json({ status: 'ok', user: req.user })
-    } else {
-        res.json({ error: true, message: "Invalid credentials" });
-    }
+router.post("/login", (req, res) => {
+    passport.authenticate('login', (err, user, info)=>{
+        res.json(info)
+    })(req, res)
 })
 
 router.get("/logout", (req, res) => {
-    const user = req.user;
+    const user = req.session.user; 
     req.logout((err)=>{
         if (err){
-            res.json({status: "error", error: err})
+            req.session.destroy(function(err) {
+                res.json({status: "logout error", error: err})
+                return;
+             })
         }
     });
     res.json({ status: "ok", user })
 })
 
-router.post("/register", passport.authenticate('register'), (req, res) => {
-    if (req.user){
-        res.json({ status: "ok", message: "user registered successfully" })
-    } else{
-        res.json({error: true, message: "user or email already exists"})
-    }
+router.post("/register", (req, res) => {
+    passport.authenticate('register', (err, user, info)=>{
+        res.json(info)
+    })(req, res)
 })
 
 
-module.exports = { router, users };
+module.exports = { router, users, passport };
