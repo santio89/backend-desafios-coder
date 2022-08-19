@@ -23,7 +23,7 @@
     "start": "node src/server.js",
     "devStart": "nodemon src/server.js"
   },
-  "name": "node-websockets-sql-mongo-coder",
+  "name": "node-desafios-coder",
   "version": "1.0.0",
   "main": "src/server.js",
   "keywords": [],
