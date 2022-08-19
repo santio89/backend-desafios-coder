@@ -26,11 +26,11 @@ router.get("/datos", checkAuthentication, (req, res) => {
         req.session.contador++;
         res.json({
             visitas: req.session.contador,
-            user: req.user
+            user: req.session.user
         })
     } else {
         req.session.contador = 1;
-        res.json({ visitas: req.session.contador, user: req.user })
+        res.json({ visitas: req.session.contador, user: req.session.user })
     }
 
 })
