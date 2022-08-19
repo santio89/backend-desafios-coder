@@ -1,10 +1,8 @@
 const passport = require("passport");
 const express = require("express");
 const router = express.Router();
-const initializePassportConfig = require("../passportConfig")
 const users = require("../models/usersContainerModel");
 
-initializePassportConfig(passport)
 
 router.use(express.urlencoded({ extended: true }))
 
@@ -43,15 +41,10 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", (req, res) => {
     const user = req.session.user; 
-    req.logout((err)=>{
-        if (err){
-            req.session.destroy(function(err) {
-                res.json({status: "logout error", error: err})
-                return;
-             })
-        }
-    });
-    res.json({ status: "ok", user })
+    req.session.destroy((err)=>{
+        err?res.json({status: "logout error", error: err}):res.json({ status: "ok", user });
+        return;
+     })
 })
 
 router.post("/register", (req, res) => {

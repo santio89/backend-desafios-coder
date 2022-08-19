@@ -13,6 +13,7 @@ const mongoConnection = require("./db/database").mongoConnection
 const MongoStore = require("connect-mongo")
 const passport = require("passport")
 const chat = require("./models/chatContainerModel")
+const initializePassportConfig = require("./passportConfig")
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 const app = express();
@@ -45,6 +46,7 @@ app.use(session({
 /* passport init */
 app.use(passport.initialize())
 app.use(passport.session())
+initializePassportConfig(passport)
 
 
 /* funcion auth para middleware */
