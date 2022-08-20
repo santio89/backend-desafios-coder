@@ -1,5 +1,6 @@
 
 const knex = require('knex')
+require('dotenv').config()
 
 const config = {
   client: "mysql",
@@ -17,7 +18,7 @@ const configSQLite3 = {
   useNullAsDefault: true
 }
 
-const mongoConnection = `mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority`
+const mongoConnection = process.env.MONGOCONNECT || `mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority`
 const mysqlConnection = knex(config)
 const sqliteConnection = knex(configSQLite3)
 

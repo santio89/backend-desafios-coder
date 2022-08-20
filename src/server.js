@@ -14,10 +14,11 @@ const MongoStore = require("connect-mongo")
 const passport = require("passport")
 const chat = require("./models/chatContainerModel")
 const initializePassportConfig = require("./passportConfig")
+require('dotenv').config()
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 /* post url encode */
 app.use(express.json())
@@ -34,7 +35,7 @@ app.use(session({
             "mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority",
         mongoStoreOptions,
     }),
-    secret: "coderproject",
+    secret: process.env.SESSIONSECRET || 'coderproject',
     resave: true,
     saveUninitialized: true,
     cookie: {

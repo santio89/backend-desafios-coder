@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt")
 const LocalStrategy = require("passport-local").Strategy
 const users = require("./models/usersContainerModel")
-const UsersContainer = require("./Contenedores/Users")
 
 function initialize(passport) {
     const createHash = (pass) => bcrypt.hashSync(pass, bcrypt.genSaltSync(10));
@@ -26,25 +25,25 @@ function initialize(passport) {
             users.save(newUser);
 
             return done(null, null, { status: "ok", message: "Usuario registrado exitosamente" })
-        } catch(e){
-            console.log("error en registro: ",e)
+        } catch (e) {
+            console.log("error en registro: ", e)
             done(null, newUser, { error: true, message: "error en registro" })
         }
     })
 
-    const loginStrategy = new LocalStrategy({passReqToCallback: true}, async (req, username, password, done)=>{
+    const loginStrategy = new LocalStrategy({ passReqToCallback: true }, async (req, username, password, done) => {
         const { email } = req.body;
-        try{
+        try {
             const user = await users.getByEmail(email)
-            
-            if (user.error || !bcrypt.compareSync(password, user.password)){
+
+            if (user.error || !bcrypt.compareSync(password, user.password)) {
                 return done(null, null, { error: true, message: "credenciales inválidas" })
             }
 
-            req.session.user = user;
+            req.session.user = {username: user.username, email: user.email};
             done(null, user, { status: 'ok' })
-        } catch(e){
-            console.log("error login: ",e)
+        } catch (e) {
+            console.log("error login: ", e)
             done(null, null, { error: true, message: "error login" })
         }
     })
@@ -52,11 +51,13 @@ function initialize(passport) {
     passport.use('register', registerStrategy)
     passport.use('login', loginStrategy)
 
-    passport.serializeUser((user, done) => done(null, user._id))
-    
+    passport.serializeUser((user, done) => {
+        done(null, user._id);
+    });
+
     passport.deserializeUser((id, done) => {
-        UsersContainer.findById(id, done);
-    })
+        const a = users.collection.findById(id, done);
+    });
 }
 
 module.exports = initialize;
