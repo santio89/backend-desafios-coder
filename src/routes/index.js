@@ -33,18 +33,23 @@ router.get("/datos", checkAuthentication, (req, res) => {
 
 })
 
-router.post("/login", (req, res) => {
-    passport.authenticate('login', (err, user, info)=>{
-        res.json(info)
-    })(req, res)
-})
-
 router.get("/logout", (req, res) => {
     const user = req.session.user; 
     req.session.destroy((err)=>{
         err?res.json({status: "logout error", error: err}):res.json({ status: "ok", user });
         return;
      })
+})
+
+router.get("/info", (req, res) => {
+    
+
+})
+
+router.post("/login", (req, res) => {
+    passport.authenticate('login', (err, user, info)=>{
+        res.json(info)
+    })(req, res)
 })
 
 router.post("/register", (req, res) => {

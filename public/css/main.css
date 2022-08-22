@@ -129,6 +129,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 header nav {
   width: 100%;
@@ -188,7 +189,7 @@ h2 {
   position: fixed;
   top: 70px;
   right: 2%;
-  padding: 1.4rem;
+  padding: 1.2rem;
   line-height: 1.4;
   font-size: clamp(0.8rem, 0.8rem + 0.8vw, 1.8rem);
   font-weight: bold;
@@ -197,7 +198,49 @@ h2 {
   background: rgba(30, 30, 30, 0.8);
   border-radius: 0.4em;
   visibility: hidden;
-  z-index: 1;
+  z-index: 2;
+}
+
+.info__modal {
+  min-width: 60vw;
+  aspect-ratio: 1;
+  margin: auto;
+  border-radius: 0.4em;
+  background: rgb(30, 30, 30);
+  border: 2px dashed coral;
+  position: fixed;
+}
+.info__modal__text {
+  max-width: 100%;
+  max-height: 100%;
+}
+.info__modal__open {
+  position: absolute;
+  top: 64px;
+  left: 4%;
+  padding: 0.2em;
+  border-radius: 0.4em;
+  color: coral;
+  background: rgb(30, 30, 30);
+  font-weight: bold;
+  font-size: clamp(1rem, 1rem + 1vw, 1.4rem);
+}
+.info__modal__open:hover, .info__modal__open:focus-visible {
+  outline: 1px dashed white;
+}
+.info__modal__close {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  right: 0.4em;
+  font-size: clamp(2rem, 2rem + 1vw, 3.4rem);
+}
+.info__modal::-webkit-backdrop {
+  background-color: rgba(30, 30, 30, 0.4);
+}
+.info__modal::backdrop {
+  background-color: rgba(30, 30, 30, 0.4);
 }
 
 section {
@@ -215,7 +258,7 @@ section {
   padding-bottom: 4%;
 }
 section:first-of-type {
-  margin-top: 60px;
+  margin-top: 68px;
 }
 
 .formulario form {
@@ -593,7 +636,7 @@ footer p {
   transform: translate(-50%, -50%);
   background-color: rgb(30, 30, 30);
   border-radius: 0.4em;
-  border: 2px dashed rgb(30, 30, 30);
+  border: 2px dashed coral;
   position: fixed;
 }
 .register__modal::-webkit-backdrop {
@@ -680,20 +723,17 @@ footer p {
   visibility: visible;
 }
 
-.datos {
-  display: none;
-}
-
 @media (max-width: 720px) {
   header nav {
     justify-content: center;
   }
   .header__title {
-    position: absolute;
+    /*         position: absolute;
     top: 62px;
     left: 2%;
     color: coral;
     font-size: 1.4rem;
-    background-color: rgba(30, 30, 30, 0.8);
+    background-color: rgb(30, 30, 30, .8); */
+    display: none;
   }
 }/*# sourceMappingURL=main.css.map */

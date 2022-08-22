@@ -1,8 +1,8 @@
 
 const knex = require('knex')
-require('dotenv').config()
+const config = require('../config')
 
-const config = {
+const configMysql = {
   client: "mysql",
   connection: {
     host: "127.0.0.1",
@@ -18,8 +18,8 @@ const configSQLite3 = {
   useNullAsDefault: true
 }
 
-const mongoConnection = process.env.MONGOCONNECT || `mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority`
-const mysqlConnection = knex(config)
+const mongoConnection = config.mongoconnect
+const mysqlConnection = knex(configMysql)
 const sqliteConnection = knex(configSQLite3)
 
 module.exports = {mysqlConnection, sqliteConnection, mongoConnection}

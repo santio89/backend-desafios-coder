@@ -1,5 +1,6 @@
 const express = require("express")
 const routesApi = require("./routes/indexApiRoutes").router;
+const randomsApi = require("./routes/apiRandoms").router;
 const routes = require("./routes/index").router;
 const routesProdTest = require("./routes/productosTest").router;
 const path = require("path")
@@ -14,11 +15,11 @@ const MongoStore = require("connect-mongo")
 const passport = require("passport")
 const chat = require("./models/chatContainerModel")
 const initializePassportConfig = require("./passportConfig")
-require('dotenv').config()
+const config = require("./config");
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 const app = express();
-const port = process.env.PORT || 8080;
+const port = config.port;
 
 /* post url encode */
 app.use(express.json())
@@ -35,7 +36,7 @@ app.use(session({
             "mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority",
         mongoStoreOptions,
     }),
-    secret: process.env.SESSIONSECRET || 'coderproject',
+    secret: config.sessionsecret,
     resave: true,
     saveUninitialized: true,
     cookie: {
@@ -61,6 +62,7 @@ function auth(req, res, next) {
 
 /* routes main */
 app.use("/", routes)
+app.use("/api/randoms", randomsApi)
 app.use("/api/productos", auth, routesApi)
 app.use("/api/productos-test", auth, routesProdTest)
 

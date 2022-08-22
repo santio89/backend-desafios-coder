@@ -30,12 +30,12 @@ async function renderItems(items, logStatus) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(obj),
-                credentials: 'include' 
+                credentials: 'include'
             }).then(res => {
                 return res.json()
             }).then(res => {
                 if (res.status === "ok") {
-                    window.location.href="/";
+                    window.location.href = "/";
                 } else {
                     if (res.error) {
                         clearTimeout(errorTimeout);
@@ -65,7 +65,7 @@ async function renderItems(items, logStatus) {
         registerButton.addEventListener("click", () => {
             registerModal.showModal();
 
-            const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("mousedown", modalCloseClick); registerModal.close(); userReg.value = ""; emailReg.value = ""; passwordReg.value = ""}};
+            const modalCloseClick = (e) => { if (e.target === registerModal) { window.removeEventListener("mousedown", modalCloseClick); registerModal.close(); userReg.value = ""; emailReg.value = ""; passwordReg.value = "" } };
             window.addEventListener("mousedown", modalCloseClick);
 
             registerModalClose.addEventListener("click", () => { window.removeEventListener("click", modalCloseClick); registerModal.close() })
@@ -129,6 +129,23 @@ async function renderItems(items, logStatus) {
         return;
     }
 
+    /* info */
+    const infoOpen = document.querySelector(".info__modal__open");
+    const infoModal = document.querySelector(".info__modal");
+    const infoClose = document.querySelector(".info__modal__close");
+
+    infoOpen.addEventListener("click", () => {
+        infoModal.showModal()
+
+        const modalCloseClick = (e) => { if (e.target === infoModal) { window.removeEventListener("mousedown", modalCloseClick); infoModal.close()} };
+        window.addEventListener("mousedown", modalCloseClick);
+
+        infoClose.addEventListener("click", () => {
+            infoModal.close();
+            window.removeEventListener("mousedown", modalCloseClick);
+        })
+    })
+
     /* login salute */
     const salute = document.querySelector(".header__salute");
     salute.style.visibility = "visible";
@@ -152,7 +169,7 @@ async function renderItems(items, logStatus) {
                 salute.innerHTML = `Hasta luego, ${res.user.email}!`
 
                 setTimeout(() => {
-                    window.location.href="/";
+                    window.location.href = "/";
                 }, 2000);
             } else {
                 console.log("error logging out")
@@ -177,7 +194,7 @@ async function renderItems(items, logStatus) {
             const logStatus = await logged.json()
 
             if (logStatus.status === 401) {
-                window.location.href="/";
+                window.location.href = "/";
                 return
             }
 
@@ -213,7 +230,7 @@ async function renderItems(items, logStatus) {
             const logStatus = await logged.json()
 
             if (logStatus.status === 401) {
-                window.location.href="/";
+                window.location.href = "/";
                 return
             }
 
@@ -367,8 +384,8 @@ socket.on("server:items-test", async items => {
     const { mensajesDenormalizados, porcentajeOptimizacion } = denormalizeMensajes(items.mensajes)
     items.mensajes = mensajesDenormalizados
     items.optimization = porcentajeOptimizacion;
-    
-  
+
+
     /* fetch status a la session */
     try {
         const logged = await fetch("/logged")
