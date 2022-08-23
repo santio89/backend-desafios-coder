@@ -133,8 +133,9 @@ async function renderItems(items, logStatus) {
     const infoOpen = document.querySelector(".info__modal__open");
     const infoModal = document.querySelector(".info__modal");
     const infoClose = document.querySelector(".info__modal__close");
+    const infoText = document.querySelector(".info__modal__text")
 
-    infoOpen.addEventListener("click", () => {
+    infoOpen.addEventListener("click", async () => {
         infoModal.showModal()
 
         const modalCloseClick = (e) => { if (e.target === infoModal) { window.removeEventListener("mousedown", modalCloseClick); infoModal.close()} };
@@ -144,6 +145,11 @@ async function renderItems(items, logStatus) {
             infoModal.close();
             window.removeEventListener("mousedown", modalCloseClick);
         })
+
+        const infoRes = await fetch("/info");
+        const info = await infoRes.json();
+        
+        infoText.innerHTML = `• Argumentos: ${JSON.stringify(info.args)}\n• Plataforma: ${info.platform}\n• Versión: ${info.version}\n• Memoria rss: ${info.memory.rss}\n• Path: ${info.path}\n• PID: ${info.pid}\n• Carpeta: ${info.folder}`
     })
 
     /* login salute */

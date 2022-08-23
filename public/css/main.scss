@@ -228,13 +228,18 @@ h2 {
         &__text {
             max-width: 100%;
             max-height: 100%;
+            color: white;
+            padding: 2em;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-size: clamp(1rem, 1rem + 1vw, 2rem);
         }
 
         &__open {
             position: absolute;
             top: 64px;
             left: 4%;
-            padding: .2em;
+            padding: .2em .4em;
             border-radius: .4em;
             color: coral;
             background: rgb(30, 30, 30);
