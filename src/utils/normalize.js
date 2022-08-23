@@ -1,6 +1,5 @@
 const normalize = require("normalizr").normalize
 const schema = require("normalizr").schema
-const denormalize = require("normalizr").denormalize
 const util = require("util")
 
 
