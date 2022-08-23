@@ -136,16 +136,6 @@ async function renderItems(items, logStatus) {
     const infoText = document.querySelector(".info__modal__text")
 
     infoOpen.addEventListener("click", async () => {
-        infoModal.showModal()
-
-        const modalCloseClick = (e) => { if (e.target === infoModal) { window.removeEventListener("mousedown", modalCloseClick); infoModal.close()} };
-        window.addEventListener("mousedown", modalCloseClick);
-
-        infoClose.addEventListener("click", () => {
-            infoModal.close();
-            window.removeEventListener("mousedown", modalCloseClick);
-        })
-
         const infoRes = await fetch("/info");
         const info = await infoRes.json();
 
@@ -153,6 +143,16 @@ async function renderItems(items, logStatus) {
             window.location.href = "/";
             return;
         } else{
+            infoModal.showModal()
+
+            const modalCloseClick = (e) => { if (e.target === infoModal) { window.removeEventListener("mousedown", modalCloseClick); infoModal.close(); infoText.innerHTML = ``} };
+            window.addEventListener("mousedown", modalCloseClick);
+    
+            infoClose.addEventListener("click", () => {
+                infoModal.close();
+                window.removeEventListener("mousedown", modalCloseClick);
+            })
+
             infoText.innerHTML = `• Argumentos: ${JSON.stringify(info.args)}\n• Plataforma: ${info.platform}\n• Versión: ${info.version}\n• Memoria rss: ${info.memory.rss}\n• Path: ${info.path}\n• PID: ${info.pid}\n• Carpeta: ${info.folder}`
         }
     })
