@@ -148,6 +148,11 @@ async function renderItems(items, logStatus) {
 
         const infoRes = await fetch("/info");
         const info = await infoRes.json();
+
+        if (info.status === 401){
+            window.location.href = "/";
+            return;
+        }
         
         infoText.innerHTML = `• Argumentos: ${JSON.stringify(info.args)}\n• Plataforma: ${info.platform}\n• Versión: ${info.version}\n• Memoria rss: ${info.memory.rss}\n• Path: ${info.path}\n• PID: ${info.pid}\n• Carpeta: ${info.folder}`
     })
@@ -178,7 +183,7 @@ async function renderItems(items, logStatus) {
                     window.location.href = "/";
                 }, 2000);
             } else {
-                console.log("error logging out")
+                window.location.href = "/";
             }
         })
     })

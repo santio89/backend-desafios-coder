@@ -42,7 +42,7 @@ router.get("/logout", (req, res) => {
     })
 })
 
-router.get("/info", (req, res) => {
+router.get("/info", checkAuthentication, (req, res) => {
     const platform = process.platform;
     const version = process.version;
     const memory = process.memoryUsage();
