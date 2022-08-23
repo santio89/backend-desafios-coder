@@ -12,8 +12,8 @@ router.get("/", (req, res)=>{
     }
 
     calc.send(cant);
-    calc.on('message', message=>{
-        res.json(message);
+    calc.on('message', numbers=>{
+        res.json(numbers);
     })
 })
 
