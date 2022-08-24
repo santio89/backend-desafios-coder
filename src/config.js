@@ -8,6 +8,6 @@ const args = require("yargs/yargs")(process.argv.slice(2)).alias({
 
 module.exports = {
     port: args.port, 
-    sessionsecret: process.env.SESSIONSECRET || 'coderproject',
-    mongoconnect: process.env.MONGOCONNECT || `mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority`,
+    sessionsecret: process.env.SESSIONSECRET,
+    mongoconnect: process.env.MONGOCONNECT,
 }
