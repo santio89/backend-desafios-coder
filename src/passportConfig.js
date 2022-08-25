@@ -56,7 +56,11 @@ function initialize(passport) {
     });
 
     passport.deserializeUser((id, done) => {
-        const a = users.collection.findById(id, done);
+        users.collection.findById(id, done).then(user=>{
+            done(null, user)
+        }).catch(err=>{
+            done(err, null)
+        });
     });
 }
 

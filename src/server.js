@@ -33,7 +33,7 @@ app.use(cookieParser())
 app.use(session({
     store: MongoStore.create({
         mongoUrl:
-            "mongodb+srv://santi:santi12test@cluster0.pcdnxq9.mongodb.net/ecommerce-node-project?retryWrites=true&w=majority",
+            config.mongoconnect,
         mongoStoreOptions,
     }),
     secret: config.sessionsecret,
@@ -80,7 +80,7 @@ app.use(function (err, req, res, next) {
 
 
 
-mongoose.connect(mongoConnection).then(()=>console.log("Conexión establecida con Mongo")).catch(error=>console.log("error conectado a db: ", error));
+mongoose.connect(mongoConnection).then(() => console.log("Conexión establecida con Mongo")).catch(error => console.log("error conectado a db: ", error));
 
 /* start server */
 const expressServer = app.listen(port, (err) => {
