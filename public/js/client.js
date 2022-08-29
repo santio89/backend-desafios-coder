@@ -153,7 +153,7 @@ async function renderItems(items, logStatus) {
                 window.removeEventListener("mousedown", modalCloseClick);
             })
 
-            infoText.innerHTML = `• Argumentos: ${JSON.stringify(info.args)}\n• Plataforma: ${info.platform}\n• Versión: ${info.version}\n• Memoria rss: ${info.memory.rss}\n• Path: ${info.path}\n• PID: ${info.pid}\n• Carpeta: ${info.folder}`
+            infoText.innerHTML = `• Argumentos: ${JSON.stringify(info.args)}\n• Plataforma: ${info.platform}\n• Versión: ${info.version}\n• Memoria rss: ${info.memory.rss}\n• Path: ${info.path}\n• PID: ${info.pid}\n• Carpeta: ${info.folder}\n• CPUs: ${info.cpus}`
         }
     })
 

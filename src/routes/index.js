@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const users = require("../models/usersContainerModel");
 const args = require("yargs/yargs")(process.argv.slice(2)).argv;
+const os = require("os");
 
 
 router.use(express.urlencoded({ extended: true }))
@@ -49,6 +50,7 @@ router.get("/info", checkAuthentication, (req, res) => {
     const path = process.execPath;
     const pid = process.pid;
     const folder = process.cwd();
+    const cpus = os.cpus().length;
     
     const objetoInfo = {
         args,
@@ -57,7 +59,8 @@ router.get("/info", checkAuthentication, (req, res) => {
         memory,
         path,
         pid,
-        folder
+        folder,
+        cpus
     }
 
     res.json(objetoInfo);
