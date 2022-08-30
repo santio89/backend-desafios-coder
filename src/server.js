@@ -18,14 +18,13 @@ const initializePassportConfig = require("./passportConfig")
 const config = require("./config");
 const os = require("os");
 const cluster = require("cluster");
-
+const compression = require("compression")
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 const app = express();
 const port = config.port;
 
 if (config.mode === "cluster" && cluster.isPrimary) {
-
     os.cpus().map(() => {
         cluster.fork();
     })
@@ -34,8 +33,9 @@ if (config.mode === "cluster" && cluster.isPrimary) {
         console.log(`Worker ${worker.process.pid} died. A new one is being created.`)
         cluster.fork();
     })
-
 } else {
+    /* compression */
+    app.use(compression())
 
     /* post url encode */
     app.use(express.json())
@@ -137,5 +137,4 @@ if (config.mode === "cluster" && cluster.isPrimary) {
             io.emit("server:mensaje", savedMessage);
         })
     })
-
 }
