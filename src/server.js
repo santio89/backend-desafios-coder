@@ -78,7 +78,7 @@ if (config.mode === "cluster" && cluster.isPrimary) {
 
     /* routes main */
     app.use("/", routes)
-    app.use("/api/randoms", auth, randomsApi)
+    app.use("/api/randoms", /* auth, */ randomsApi)
     app.use("/api/productos", auth, routesApi)
     app.use("/api/productos-test", auth, routesProdTest)
 
