@@ -1,3 +1,5 @@
+const logger = require("../logs/logger.js")
+
 class Contenedor {
     constructor(database, table) {
         this.database = database
