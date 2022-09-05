@@ -4,8 +4,8 @@ const config = require("../config")
 const buildProdLogger = () => {
     const prodLogger = winston.createLogger({
       transports: [
-        new winston.transports.File({ filename: "src/logs/debug.log", level: "debug" }),
-        new winston.transports.File({ filename: "src/logs/error.log", level: "error" }),
+        new winston.transports.File({ filename: "src/logs/debug.log", level: "debug", format: winston.format.combine(winston.format.timestamp(), winston.format.json()) }),
+        new winston.transports.File({ filename: "src/logs/error.log", level: "error", format: winston.format.combine(winston.format.timestamp(), winston.format.json()) }),
       ],
     });
   
@@ -14,7 +14,7 @@ const buildProdLogger = () => {
   
   const buildDevLogger = () => {
     const devLogger = winston.createLogger({
-      transports: [new winston.transports.Console({ level: "info" })],
+      transports: [new winston.transports.Console({ level: "info", format: winston.format.combine(winston.format.timestamp(), winston.format.json()) })],
     });
   
     return devLogger;
