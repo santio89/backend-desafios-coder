@@ -18,7 +18,8 @@ const initializePassportConfig = require("./passportConfig")
 const config = require("./config");
 const os = require("os");
 const cluster = require("cluster");
-const compression = require("compression")
+const compression = require("compression");
+const logger = require("./logs/logger")
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 const app = express();
@@ -84,6 +85,7 @@ if (config.mode === "cluster" && cluster.isPrimary) {
 
     /* not found */
     app.use((req, res) => {
+        logger.debug("Ruta no encontrada")
         res.status(404).json({ error404: "Ruta no encontrada" });
     })
 

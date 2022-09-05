@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const logger = require("../logs/logger.js")
+const logger = require("../logs/logger")
 
 class Chat{
     constructor(collectionName, schema){

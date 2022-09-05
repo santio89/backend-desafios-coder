@@ -1,4 +1,4 @@
-const logger = require("../logs/logger.js")
+const logger = require("../logs/logger")
 
 class Contenedor {
     constructor(database, table) {
