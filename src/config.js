@@ -8,7 +8,7 @@ const args = require("yargs/yargs")(process.argv.slice(2)).alias({
 }).argv
 
 module.exports = {
-    port: args.port || process.env.PORT, 
+    port: process.env.PORT || args.port, 
     mode: args.mode,
     sessionsecret: process.env.SESSIONSECRET,
     mongoconnect: process.env.MONGOCONNECT,
