@@ -15,7 +15,7 @@ class Chat{
         }
         
         catch(err){
-            console.log("Error guardando chat. Code: ", err);
+            logger.error("Error guardando chat. Code: ", err);
             return false;
         }
     }
@@ -25,7 +25,7 @@ class Chat{
             const mensajes = await this.collection.find({}, { __v: 0 })
             return mensajes;
         } catch(err){
-            console.log("Error guardando chat. Code: ", err);
+            logger.error("Error guardando chat. Code: ", err);
             return false;
         }
     }
