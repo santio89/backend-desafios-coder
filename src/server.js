@@ -77,6 +77,12 @@ if (config.mode === "cluster" && cluster.isPrimary) {
         }
     }
 
+    /* all routes - log method */
+    app.use((req, res, next)=>{
+        logger.info(`New request: ${req.method} - ${req.path}`)
+        next()
+    })
+
     /* routes main */
     app.use("/", routes)
     app.use("/api/randoms", /* auth, */ randomsApi)
@@ -85,12 +91,13 @@ if (config.mode === "cluster" && cluster.isPrimary) {
 
     /* not found */
     app.use((req, res) => {
-        logger.debug("Ruta no encontrada")
+        logger.warn(`Route not found: ${req.method} - ${req.path}`)
         res.status(404).json({ error404: "Ruta no encontrada" });
     })
 
     // error handler
     app.use(function (err, req, res, next) {
+        logger.error("Error: ", err)
         res.status(500).json({
             error: err.message,
         });

@@ -15,7 +15,7 @@ class Users{
         }
         
         catch(err){
-            console.log("Error guardando user. Code: ", err);
+            logger.error("Error guardando user. Code: ", err);
             return false;
         }
     }
@@ -30,7 +30,7 @@ class Users{
                 return { error: `User de email ${email} no encontrado` }
             }
         } catch (err) {
-            console.log("Error buscando email. Code: ", err)
+            logger.error("Error buscando email. Code: ", err)
             return {error: "error buscando email"}
         }
     }
@@ -45,7 +45,7 @@ class Users{
                 return { error: `ID ${id} no encontrado` }
             }
         } catch (err) {
-            console.log("Error buscando id. Code: ", err)
+            logger.error("Error buscando id. Code: ", err)
             return {error: "error buscando id"}
         }
     }
@@ -60,7 +60,7 @@ class Users{
                 return { error: `Username ${username} no encontrado` }
             }
         } catch (err) {
-            console.log("Error buscando user. Code: ", err)
+            logger.error("Error buscando user. Code: ", err)
             return {error: "error buscando user"}
         }
     }

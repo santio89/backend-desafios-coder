@@ -11,7 +11,7 @@ class Chat {
         }
 
         catch (err) {
-            console.log("Error guardando chat. Code: ", err);
+            logger.error("Error guardando chat. Code: ", err);
             return false;
         }
     }
@@ -25,10 +25,10 @@ class Chat {
                 /* if no table */
                 const createTable = require("./db/chat/create_chat_table")
                 await createTable();
-                console.log(`Tabla ${this.table} creada`)
+                logger.info(`Tabla ${this.table} creada`)
                 return []
             } else {
-                console.log("Error buscando mensajes. Code: ", err)
+                logger.error("Error buscando mensajes. Code: ", err)
                 return { error: "error buscando mensajes" }
             }
         }
