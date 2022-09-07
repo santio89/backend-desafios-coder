@@ -1,0 +1,133 @@
+Statistical profiling result from v8-without-consoleLog.log, (3912 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   3582   91.6%          C:\WINDOWS\SYSTEM32\ntdll.dll
+    314    8.0%          C:\Program Files\nodejs\node.exe
+      2    0.1%          C:\WINDOWS\System32\WS2_32.dll
+      2    0.1%          C:\WINDOWS\System32\KERNELBASE.dll
+      1    0.0%          C:\WINDOWS\System32\KERNEL32.DLL
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      4    0.1%   36.4%  LazyCompile: *resolve node:path:158:10
+      1    0.0%    9.1%  LazyCompile: *stat node:internal/modules/cjs/loader:151:14
+      1    0.0%    9.1%  LazyCompile: *basename node:path:749:11
+      1    0.0%    9.1%  LazyCompile: *assignSocket node:_http_server:240:62
+      1    0.0%    9.1%  Function: ^jsonParser D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\body-parser\lib\types\json.js:98:30
+      1    0.0%    9.1%  Function: ^Socket._writeGeneric node:net:791:42
+      1    0.0%    9.1%  Function: ^Module._load node:internal/modules/cjs/loader:757:24
+      1    0.0%    9.1%  Function: ^<anonymous> node:internal/validators:222:42
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+     11    0.3%  100.0%  JavaScript
+      0    0.0%    0.0%  C++
+     21    0.5%  190.9%  GC
+   3901   99.7%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   3582   91.6%  C:\WINDOWS\SYSTEM32\ntdll.dll
+
+    314    8.0%  C:\Program Files\nodejs\node.exe
+    205   65.3%    C:\Program Files\nodejs\node.exe
+     32   15.6%      Function: ^compileFunction node:vm:308:25
+     32  100.0%        Function: ^wrapSafe node:internal/modules/cjs/loader:1017:18
+     32  100.0%          Function: ^Module._compile node:internal/modules/cjs/loader:1059:37
+     31   96.9%            Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      1    3.1%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1114:37
+     22   10.7%      Function: ^stat node:internal/modules/cjs/loader:151:14
+     13   59.1%        Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+     13  100.0%          Function: ^Module._resolveFilename node:internal/modules/cjs/loader:848:35
+     13  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:757:24
+      9   40.9%        Function: ^tryFile node:internal/modules/cjs/loader:384:17
+      9  100.0%          Function: ^tryExtensions node:internal/modules/cjs/loader:400:23
+      9  100.0%            Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+     22   10.7%      Function: ^realpathSync node:fs:2425:22
+     18   81.8%        Function: ^toRealPath node:internal/modules/cjs/loader:393:20
+     18  100.0%          Function: ^tryFile node:internal/modules/cjs/loader:384:17
+     18  100.0%            Function: ^tryExtensions node:internal/modules/cjs/loader:400:23
+      4   18.2%        LazyCompile: *Module._findPath node:internal/modules/cjs/loader:494:28
+      3   75.0%          Function: ^Module._resolveFilename node:internal/modules/cjs/loader:848:35
+      2   66.7%            Function: ^Module._load node:internal/modules/cjs/loader:757:24
+      1   33.3%            LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+      1   25.0%          LazyCompile: *Module._resolveFilename node:internal/modules/cjs/loader:848:35
+      1  100.0%            LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+     11    5.4%      Function: ^openSync node:fs:576:18
+     11  100.0%        Function: ^readFileSync node:fs:450:22
+     11  100.0%          Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+     11  100.0%            Function: ^Module.load node:internal/modules/cjs/loader:969:33
+      5    2.4%      Function: ^read node:internal/modules/package_json_reader:16:14
+      4   80.0%        LazyCompile: *readPackage node:internal/modules/cjs/loader:290:21
+      3   75.0%          Function: ^tryPackage node:internal/modules/cjs/loader:338:20
+      2   66.7%            LazyCompile: *Module._findPath node:internal/modules/cjs/loader:494:28
+      1   33.3%            Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      1   25.0%          LazyCompile: *Module._findPath node:internal/modules/cjs/loader:494:28
+      1  100.0%            Function: ^Module._resolveFilename node:internal/modules/cjs/loader:848:35
+      1   20.0%        Function: ^readPackage node:internal/modules/cjs/loader:290:21
+      1  100.0%          Function: ^resolveExports node:internal/modules/cjs/loader:472:24
+      1  100.0%            Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      4    2.0%      Function: ^compression D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\compression\index.js:59:31
+      3   75.0%        LazyCompile: *handle D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\express\lib\router\layer.js:86:49
+      3  100.0%          Function: ^trim_prefix D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\express\lib\router\index.js:293:23
+      3  100.0%            LazyCompile: *next D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\express\lib\router\index.js:177:16
+      1   25.0%        Function: ^handle D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\express\lib\router\layer.js:86:49
+      1  100.0%          Function: ^trim_prefix D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\express\lib\router\index.js:293:23
+      1  100.0%            Function: ^<anonymous> D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\express\lib\router\index.js:280:64
+      4    2.0%      Function: ^_send node:_http_outgoing:319:49
+      4  100.0%        Function: ^write_ node:_http_outgoing:730:16
+      4  100.0%          Function: ^write node:_http_outgoing:701:49
+      3   75.0%            Function: ^write D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\compression\index.js:78:32
+      1   25.0%            LazyCompile: *write D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\compression\index.js:78:32
+      3    1.5%      LazyCompile: *resolve node:path:158:10
+      1   33.3%        LazyCompile: *toNamespacedPath node:path:618:19
+      1  100.0%          Function: ^realpathSync node:fs:2425:22
+      1  100.0%            Function: ^toRealPath node:internal/modules/cjs/loader:393:20
+      1   33.3%        LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+      1  100.0%          Function: ^Module.require node:internal/modules/cjs/loader:997:36
+      1  100.0%            Function: ^require node:internal/modules/cjs/helpers:101:31
+      1   33.3%        Function: ^readPackage node:internal/modules/cjs/loader:290:21
+      1  100.0%          Function: ^readPackageScope node:internal/modules/cjs/loader:321:26
+      1  100.0%            Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      3    1.5%      Function: ^readSync node:fs:684:18
+      2   66.7%        Function: ^tryReadSync node:fs:429:21
+      2  100.0%          Function: ^readFileSync node:fs:450:22
+      2  100.0%            Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      1   33.3%        LazyCompile: *readFileSync node:fs:450:22
+      1  100.0%          Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      1  100.0%            LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+      3    1.5%      Function: ^end node:_http_outgoing:833:45
+      3  100.0%        Function: ^end D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\compression\index.js:92:28
+      3  100.0%          Function: ^onend node:internal/streams/readable:691:17
+      2   66.7%            Function: ^onceWrapper node:events:636:21
+      1   33.3%            LazyCompile: *onceWrapper node:events:636:21
+      3    1.5%      C:\Program Files\nodejs\node.exe
+      1   33.3%        LazyCompile: *<anonymous> node:internal/fs/utils:681:42
+      1  100.0%          Function: ^stat node:fs:1467:14
+      1  100.0%            Function: ^next D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\send\index.js:757:17
+      1   33.3%        Function: ^splitRoot node:fs:2375:33
+      1  100.0%          Function: ^realpathSync node:fs:2425:22
+      1  100.0%            LazyCompile: *Module._findPath node:internal/modules/cjs/loader:494:28
+      1   33.3%        Function: ^get D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\@faker-js\faker\dist\cjs\locales\ar\index.js:1:368
+      1  100.0%          LazyCompile: ~get D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\@faker-js\faker\dist\cjs\locales\index.js:1:376
+      1  100.0%            Function: ~<anonymous> D:\VS\Coderhouse\NodeJS\Entrega 8-16\backend-desafios-coder\node_modules\@faker-js\faker\dist\cjs\locales\index.js:1:1
+     18    5.7%    LazyCompile: *compileFunction node:vm:308:25
+     18  100.0%      Function: ^wrapSafe node:internal/modules/cjs/loader:1017:18
+     16   88.9%        LazyCompile: *Module._compile node:internal/modules/cjs/loader:1059:37
+     16  100.0%          Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+     16  100.0%            LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+      2   11.1%        Function: ^Module._compile node:internal/modules/cjs/loader:1059:37
+      2  100.0%          Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      2  100.0%            Function: ^Module.load node:internal/modules/cjs/loader:969:33
+

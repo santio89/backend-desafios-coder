@@ -62,7 +62,7 @@ router.get("/info", checkAuthentication, (req, res) => {
         folder,
         cpus
     }
-
+    
     res.json(objetoInfo);
 })
 
