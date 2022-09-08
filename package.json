@@ -25,7 +25,9 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
+    "test": "node benchmark.js",
     "start": "node src/server.js",
+    "0xStart": "0x src/server.js",
     "devStart": "nodemon src/server.js"
   },
   "name": "backend-desafios-coder",

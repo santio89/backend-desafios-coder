@@ -66,6 +66,30 @@ router.get("/info", checkAuthentication, (req, res) => {
     res.json(objetoInfo);
 })
 
+/* ruta info con console.log, para test rendimiento */
+router.get("/infoconsolelog", checkAuthentication, (req, res) => {
+    const platform = process.platform;
+    const version = process.version;
+    const memory = process.memoryUsage();
+    const path = process.execPath;
+    const pid = process.pid;
+    const folder = process.cwd();
+    const cpus = os.cpus().length;
+    
+    const objetoInfo = {
+        args,
+        platform,
+        version,
+        memory,
+        path,
+        pid,
+        folder,
+        cpus
+    }
+    console.log(objetoInfo)
+    res.json(objetoInfo);
+})
+
 router.post("/login", (req, res) => {
     passport.authenticate('login', (err, user, info) => {
         res.json(info)

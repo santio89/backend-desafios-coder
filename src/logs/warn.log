@@ -36,3 +36,4 @@
 {"level":"warn","message":"Route not found: GET - /json","timestamp":"2022-09-07T02:52:21.139Z"}
 {"level":"warn","message":"Route not found: GET - /json/version","timestamp":"2022-09-07T02:52:21.469Z"}
 {"level":"warn","message":"Route not found: GET - /json","timestamp":"2022-09-07T02:52:21.516Z"}
+{"level":"warn","message":"Route not found: GET - /favicon.ico","timestamp":"2022-09-08T02:48:08.848Z"}
