@@ -15,7 +15,7 @@ html {
 
     /* scrollbar standard */
     scrollbar-width: thin;
-    scrollbar-color: rgb(30, 30, 30) coral;
+    scrollbar-color: rgb(30, 30, 30) lightseagreen;
 
 
     /* INICIO SCROLLBAR */
@@ -31,7 +31,7 @@ html {
 
     /* handle */
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, rgba(30, 30, 30) 50%, coral 50%);
+        background: linear-gradient(180deg, rgba(30, 30, 30) 50%, lightseagreen 50%);
     }
 
     /* FIN SCROLLBAR */
@@ -116,7 +116,7 @@ body {
 }
 
 .header__title {
-    color: coral;
+    color: lightseagreen;
     font-weight: bold;
     font-size: clamp(1.2rem, 1.2rem + 1vw, 1.8rem);
     margin-left: 1rem;
@@ -125,7 +125,7 @@ body {
     border-radius: .1em;
 
     &:focus-visible {
-        outline: 2px dashed coral;
+        outline: 2px dashed lightseagreen;
     }
 }
 
@@ -175,7 +175,7 @@ header {
 
                     &:hover,
                     &:focus {
-                        background: coral;
+                        background: lightseagreen;
                     }
                 }
             }
@@ -184,7 +184,7 @@ header {
 }
 
 h2 {
-    color: coral;
+    color: lightseagreen;
     text-shadow: 2px 2px 0 rgb(30, 30, 30);
     font-size: clamp(2rem, 2rem + 2vw, 3.2rem);
     font-weight: bold;
@@ -207,7 +207,7 @@ h2 {
         font-size: clamp(.8rem, .8rem + .8vw, 1.8rem);
         font-weight: bold;
         color: white;
-        text-shadow: 1px 1px 0 coral;
+        text-shadow: 1px 1px 0 lightseagreen;
         background: rgba(30, 30, 30, .8);
         border-radius: .4em;
         visibility: hidden;
@@ -222,7 +222,7 @@ h2 {
         margin: auto;
         border-radius: .4em;
         background: rgb(30, 30, 30);
-        border: 2px dashed coral;
+        border: 2px dashed lightseagreen;
         position: fixed;
 
         &__text {
@@ -241,7 +241,7 @@ h2 {
             left: 4%;
             padding: .2em .4em;
             border-radius: .4em;
-            color: coral;
+            color: lightseagreen;
             background: rgb(30, 30, 30);
             font-weight: bold;
             font-size: clamp(1rem, 1rem + 1vw, 1.4rem);
@@ -278,7 +278,7 @@ section {
     flex-flow: column wrap;
     justify-content: start;
     align-items: center;
-    border-bottom: 4px dashed coral;
+    border-bottom: 4px dashed lightseagreen;
     padding-bottom: 4%;
 
     &:first-of-type {
@@ -332,12 +332,12 @@ section {
                     color: white;
 
                     &:focus {
-                        outline: 2px solid coral;
+                        outline: 2px solid lightseagreen;
                     }
                 }
 
                 &[type="radio"] {
-                    accent-color: coral;
+                    accent-color: lightseagreen;
                     outline: none;
                     border: none;
 
@@ -347,7 +347,7 @@ section {
                 }
 
                 &:focus {
-                    outline: 2px solid coral;
+                    outline: 2px solid lightseagreen;
                 }
             }
 
@@ -373,7 +373,7 @@ section {
             margin-top: 1rem;
             font-size: 1.8rem;
             font-weight: bold;
-            background: coral;
+            background: lightseagreen;
             outline: none;
             border: none;
             cursor: pointer;
@@ -434,7 +434,7 @@ section {
         }
 
         th {
-            color: coral;
+            color: lightseagreen;
             font-size: 1.2em;
             padding: .8em 2em;
         }
@@ -462,7 +462,7 @@ section {
 
         fieldset {
             border-radius: 2em;
-            border: 2px dashed coral;
+            border: 2px dashed lightseagreen;
             text-align: center;
             align-self: center;
             line-height: 1;
@@ -472,7 +472,7 @@ section {
                 font-size: 1.2em;
                 text-shadow: 1px 1px 0 rgb(120, 120, 120);
                 font-weight: bold;
-                color: coral;
+                color: lightseagreen;
             }
         }
 
@@ -487,12 +487,12 @@ section {
             background: rgb(120, 120, 120);
 
             &.chat__container__mensaje {
-                color: coral;
+                color: lightseagreen;
                 font-weight: bold;
                 background: transparent;
                 padding: .2em .4em;
                 font-size: 1.2em;
-                border-bottom: 2px dashed coral;
+                border-bottom: 2px dashed lightseagreen;
                 align-self: center;
                 width: 100%;
                 padding-right: 100px;
@@ -503,7 +503,7 @@ section {
             }
 
             &.chat__container__nombre {
-                color: coral;
+                color: lightseagreen;
                 font-weight: bold;
                 background: transparent;
                 padding: .2em;
@@ -557,7 +557,7 @@ section {
 
             &__nombre {
                 font-weight: bold;
-                color: coral;
+                color: lightseagreen;
             }
 
             &__fecha {
@@ -577,7 +577,7 @@ section {
                 padding: .2em;
                 border-radius: .2em;
                 background: rgb(120, 120, 120);
-                color: coral;
+                color: lightseagreen;
                 position: absolute;
                 right: .2em;
                 will-change: transform;
@@ -612,8 +612,8 @@ section {
 footer {
     width: 100%;
     height: 40px;
-    color: coral;
-    background: linear-gradient(45deg, rgb(30, 30, 30) 80%, coral 80%);
+    color: lightseagreen;
+    background: linear-gradient(45deg, rgb(30, 30, 30) 80%, lightseagreen 80%);
     font-weight: bold;
     margin-top: auto;
     font-size: clamp(1.2rem, 1.2rem + 10%, 1.6rem);
@@ -660,7 +660,7 @@ footer {
             outline: none;
             border: none;
             text-align: left;
-            border-bottom: 2px dashed coral;
+            border-bottom: 2px dashed lightseagreen;
             font-weight: bold;
             color: white;
             max-width: 100%;
@@ -671,7 +671,7 @@ footer {
     &__send {
         font-size: 1.12em;
         font-weight: bold;
-        text-shadow: 1px 1px 0 coral;
+        text-shadow: 1px 1px 0 lightseagreen;
         color: white;
         transition: 200ms;
 
@@ -699,7 +699,7 @@ footer {
 
 .register {
     &__btn {
-        color: coral;
+        color: lightseagreen;
         text-shadow: 1px 1px 0 rgb(30, 30, 30);
         font-weight: bold;
         align-self: end;
@@ -713,7 +713,7 @@ footer {
         transform: translate(-50%, -50%);
         background-color: rgb(30, 30, 30);
         border-radius: .4em;
-        border: 2px dashed coral;
+        border: 2px dashed lightseagreen;
         position: fixed;
 
         &::backdrop {
@@ -734,7 +734,7 @@ footer {
                 outline: none;
                 background: none;
                 border: none;
-                border-bottom: 2px dashed coral;
+                border-bottom: 2px dashed lightseagreen;
                 color: white;
                 padding: .1em .2em;
                 max-width: 100%;
@@ -743,7 +743,7 @@ footer {
             &__send {
                 font-size: 1.12em;
                 font-weight: bold;
-                text-shadow: 1px 1px 0 coral;
+                text-shadow: 1px 1px 0 lightseagreen;
                 color: white;
                 transition: 200ms;
                 margin-top: 2em;
@@ -751,7 +751,7 @@ footer {
                 &:hover,
                 &:focus-visible {
                     text-shadow: 1px 1px 0 white;
-                    color: coral;
+                    color: lightseagreen;
                 }
             }
         }
@@ -763,11 +763,11 @@ footer {
             font-size: clamp(2rem, 2rem + 1vw, 3.4rem);
             line-height: 1;
             color: white;
-            text-shadow: 1px 1px 0 coral;
+            text-shadow: 1px 1px 0 lightseagreen;
 
             &:hover,
             &:focus-visible {
-                color: coral;
+                color: lightseagreen;
                 text-shadow: 1px 1px 0 white;
             }
         }
@@ -791,7 +791,7 @@ footer {
             &:first-child {
                 align-self: center;
                 color: white;
-                text-shadow: 1px 1px 0 coral
+                text-shadow: 1px 1px 0 lightseagreen
             }
 
             &:nth-child(2),
@@ -825,7 +825,7 @@ footer {
         /*         position: absolute;
         top: 62px;
         left: 2%;
-        color: coral;
+        color: lightseagreen;
         font-size: 1.4rem;
         background-color: rgb(30, 30, 30, .8); */
         display: none;
